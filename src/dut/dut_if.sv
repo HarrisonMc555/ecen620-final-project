@@ -1,8 +1,8 @@
 interface dut_if;
-   logic       clk, reset;
-   logic [7:0] dataToMemory, dataFromMemory;
-   logic [7:0] address;
-   logic       writeEnable;
+   logic        clk, reset;
+   logic [15:0] dataToMemory, dataFromMemory;
+   logic [15:0] address;
+   logic        writeEnable;
 
    modport Memory(input  clk,
                   input  reset,
