@@ -2,9 +2,11 @@ class Driver;
 
    // Driver_cbs cbs[$];
    mailbox #(Transaction) gen2drv;
+   virtual dut_if dut_if;
 
-   function new(input mailbox #(Transaction) gen2drv);
+   function new(input mailbox #(Transaction) gen2drv, virtual dut_if dut_if);
       this.gen2drv = gen2drv;
+      this.dut_if = dut_if;
    endfunction
 
    task run(int num_trans);
@@ -15,7 +17,7 @@ class Driver;
          gen2drv.peek(trans);
          // foreach (cbs[i]) cbs[i].pre_tx(trans, drop);
          // if (drop) continue;
-         transsmit(trans);
+         transmit(trans);
          // foreach (cbs[i]) cbs[i].post_tx(trans);
          gen2drv.get(trans);
       end
@@ -29,7 +31,7 @@ class Driver;
       // Do nothing
    endtask
 
-   task transsmit(input Transaction trans);
+   task transmit(input Transaction trans);
       #10ns;
       // Actually drive the transaction...
    endtask;

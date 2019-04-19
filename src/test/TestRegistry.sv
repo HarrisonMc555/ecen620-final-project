@@ -28,8 +28,8 @@ endclass
 
 class TestGood extends TestBase;
 
-   function new();
-      super.new();
+   function new(virtual dut_if dut_if);
+      super.new(dut_if);
       TestRegistry::register("TestGood", this);
    endfunction
 
