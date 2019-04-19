@@ -1,3 +1,3 @@
 # ECEn 620 Final Project
 
-Dallin Skousen and Harrison McCullough
+Dallin Skouson and Harrison McCullough
