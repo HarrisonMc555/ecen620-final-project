@@ -26,22 +26,43 @@ class TestRegistry;
 endclass
 
 
-class TestGood extends TestBase;
+class TestRandomGood extends TestBase;
 
    function new(virtual dut_if dut_if);
       super.new(dut_if);
-      TestRegistry::register("TestGood", this);
+      TestRegistry::register("TestRandomGood", this);
    endfunction
 
    virtual task run_test();
       // Driver_cb_send_to_scoreboard scoreboard_callback;
       // $display("%m");
-      // env.gen_cfg();
-      // env.build();
+      env.gen_cfg();
+      env.build();
       // scoreboard_callback = new(env.sb);
       // env.drv.cbs.push_back(scoreboard_callback);
-      // env.run();
-      // env.wrap_up();
+      env.run();
+      env.wrap_up();
+   endtask
+
+endclass
+
+class TestWithBad extends TestBase;
+
+   function new(virtual dut_if dut_if);
+      super.new(dut_if);
+      TestRegistry::register("TestWithBad", this);
+   endfunction
+
+   virtual task run_test();
+      // Driver_cb_send_to_scoreboard scoreboard_callback;
+      // $display("%m");
+      env.gen_cfg();
+      env.build();
+      // scoreboard_callback = new(env.sb);
+      // env.drv.cbs.push_back(scoreboard_callback);
+      env.gen.blueprint.valid_instruction.constraint_mode(0);
+      env.run();
+      env.wrap_up();
    endtask
 
 endclass

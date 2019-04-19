@@ -3,6 +3,7 @@
 sources = 
 sources += ../dut/dut_if.sv
 sources += clock_unit.sv
+sources += opcodes.sv
 sources += Transaction.sv
 sources += Generator.sv
 sources += Driver.sv

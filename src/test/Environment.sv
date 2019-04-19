@@ -10,6 +10,7 @@ class Environment;
    // Config cfg;
    // Scoreboard sb;
    mailbox #(Transaction) gen2drv;
+   event transactionDone;
 
    function new(virtual dut_if dut_if);
       this.dut_if = dut_if;
@@ -28,7 +29,7 @@ class Environment;
 
       // Initialize "transactors"
       gen = new(gen2drv);
-      drv = new(gen2drv, dut_if);
+      drv = new(gen2drv, dut_if, transactionDone);
       // sb = new();
    endfunction
 
