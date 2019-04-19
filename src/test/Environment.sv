@@ -4,11 +4,11 @@
 
 class Environment;
 
-   // Generator gen;
-   // Driver drv;
+   Generator gen;
+   Driver drv;
    // Config cfg;
    // Scoreboard sb;
-   // mailbox #(packet) gen2drv;
+   mailbox #(Transaction) gen2drv;
 
    function new();
       // cfg = new();
@@ -22,27 +22,27 @@ class Environment;
 
    function void build();
       // Initialize mailboxes
-      // gen2drv = new(1);
+      gen2drv = new(1);
 
       // Initialize "transactors"
-      // gen = new(gen2drv);
-      // drv = new(gen2drv);
+      gen = new(gen2drv);
+      drv = new(gen2drv);
       // sb = new();
    endfunction
 
    task run();
       fork
-         // gen.run(cfg.run_for_n_trans);
-         // drv.run(cfg.run_for_n_trans);
+         gen.run(cfg.run_for_n_trans);
+         drv.run(cfg.run_for_n_trans);
       join
    endtask
 
    task wrap_up();
       fork
-         // gen.wrap_up();
-         // drv.wrap_up();
-         // $display("Number of packets compared: %0d", sb.num_compared);
+         gen.wrap_up();
+         drv.wrap_up();
       join
+      // $display("Number of Transactions compared: %0d", sb.num_compared);
    endtask
 
 endclass
