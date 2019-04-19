@@ -1,4 +1,4 @@
-program automatic test;
+program automatic test(dut_if.Memory dut_if);
 
    TestBase tb;
 

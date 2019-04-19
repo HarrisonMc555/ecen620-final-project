@@ -4,13 +4,15 @@
 
 class Environment;
 
+   virtual dut_if dut_if;
    Generator gen;
    Driver drv;
    // Config cfg;
    // Scoreboard sb;
    mailbox #(Transaction) gen2drv;
 
-   function new();
+   function new(virtual dut_if dut_if);
+      this.dut_if = dut_if;
       // cfg = new();
       // cfg.constraint_mode(0);
       // cfg.exactly_1000.constraint_mode(1);
@@ -26,7 +28,7 @@ class Environment;
 
       // Initialize "transactors"
       gen = new(gen2drv);
-      drv = new(gen2drv);
+      drv = new(gen2drv, dut_if);
       // sb = new();
    endfunction
 
