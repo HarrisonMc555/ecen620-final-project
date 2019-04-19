@@ -14,11 +14,11 @@ class Generator;
       // blueprint.header.turn_on_valid_constraints();
    endfunction
 
-   task run(input int num_pkt = 10);
-      Transaction pkt;
-      repeat (num_pkt) begin
+   task run(input int num_trans = 10);
+      Transaction trans;
+      repeat (num_trans) begin
          `SV_RAND_CHECK(blueprint.randomize());
-         gen2drv.put(pkt);
+         gen2drv.put(trans);
       end
    endtask
 
