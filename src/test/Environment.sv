@@ -43,6 +43,8 @@ class Environment;
       fork
          gen.run(cfg.run_for_n_trans);
          drv.run(cfg.run_for_n_trans);
+         chk.run(); //TODO: add number of transactions? or just make below a join any.
+         mon.run(); //TODO: add number of transactions? or just make below a join any.
       join
    endtask
 
@@ -50,6 +52,8 @@ class Environment;
       fork
          gen.wrap_up();
          drv.wrap_up();
+         chk.wrap_up(); //shows the scoreboard
+         mon.wrap_up();
       join
       // $display("Number of Transactions compared: %0d", sb.num_compared);
    endtask
