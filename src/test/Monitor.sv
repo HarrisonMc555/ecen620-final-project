@@ -30,12 +30,17 @@ class Monitor;
         forever begin
             @(dif.cb)
             result.cycles_taken++;
-            if(/*dut memory write conditions here*/) begin
-                result.write_address.push_back(dut.memAddr);
-                result.write_data.push_back(dut.memData);
+            if(/*dut memory write conditions here*/
+                dif.writeEnable
+                ) begin
+                result.write_address.push_back(dif.address);
+                result.write_data.push_back(dif.dataFromMemory);
                 result.write_count++;
             end
-            if(/*dut about to cycle conditions here*/) begin
+            if(/*dut about to cycle conditions here*/
+                dut.controller.nextState === lc3::STATE_FETCH0; //harrison
+                dut.state === 0; //dallin
+                ) begin
                 last_result = result;
                 result = new();
                 -> dut_reset;

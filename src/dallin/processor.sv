@@ -75,7 +75,7 @@ Instructions to implement:
         4'opcode, 000, 111, 000000
 */
 
-module lc3(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn, memDataOut);
+module dut(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn, memDataOut);
     input clk, reset;
     output memWE;
     output [15:0] memAddrIn, memDataIn;
