@@ -1,7 +1,18 @@
-# sources = clock_unit.sv Transaction.sv Generator.sv Driver.sv Environment.sv \
-# 					macros.sv TestBase.sv TestRegistry.sv test.sv top.sv
+harrison = 1
+
 sources = 
 sources += ../dut/dut_if.sv
+ifdef harrison
+sources += ../harrison/lc3.sv
+sources += ../harrison/controller.sv
+sources += ../harrison/datapath.sv
+sources += ../harrison/dut.sv
+else
+sources += $(wildcard ../dallin/*.sv)
+endif
+sources += assert_macros.sv
+sources += dut_asserts.sv
+sources += bindfiles.sv
 sources += clock_unit.sv
 sources += opcodes.sv
 sources += Transaction.sv

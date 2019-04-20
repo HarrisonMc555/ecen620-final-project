@@ -15,15 +15,15 @@ class Transaction;
    constraint valid_instruction {
       instruction[15:12] inside 
      {
-      OPCODE_ADD,
-      OPCODE_AND,
-      OPCODE_NOT,
-      OPCODE_JSR,
-      OPCODE_BR,
-      OPCODE_LD,
-      OPCODE_ST,
-      OPCODE_JMP,
-      OPCODE_INV
+      ADD,
+      AND,
+      NOT,
+      JSR,
+      BR,
+      LD,
+      ST,
+      JMP,
+      INV
       };
    }
 
