@@ -12,7 +12,7 @@ class Environment;
    // Config cfg;
    // Scoreboard sb;
    mailbox #(Transaction) gen2drv;
-   mailbox #(Transaction) drv2mon;
+   mailbox #(Transaction) drv2chk;
    mailbox #(Verification) mon2chk;
    event transactionDone;
 
@@ -33,9 +33,9 @@ class Environment;
 
       // Initialize "transactors"
       gen = new(gen2drv);
-      drv = new(gen2drv, dif, transactionDone);
-      chk = new(mon2chk);
-      mon = new(drv2mon, mon2chk, dif, transactionDone);
+      drv = new(gen2drv, drv2chk, dif, transactionDone);
+      chk = new(drv2chk, mon2chk);
+      mon = new(mon2chk, dif, transactionDone);
       // sb = new();
    endfunction
 
