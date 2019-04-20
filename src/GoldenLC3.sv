@@ -20,57 +20,83 @@ module golden(clk, memDataIn, memAddrIn, memWE, memDataOut, instruction)
     logic Pf;
     logic Zf;
 
-    always @(posedge clk)
-    begin
-        memWE = 0;
-        if(instruction[15:12] == 4'b0101) begin //and
-            if (instruction[5])
-            begin
-                regfile[instruction[11:9]] = regfile[instruction[8:6]] & instruction[4:0];
-            end
-            else begin
-                regfile[instruction[11:9]] = regfile[instruction[8:6]] & regfile[instruction[2:0]];
-            end
-        end
-        else if(instruction[15:12] == 4'b0001) begin //add
-            if (instruction[5])
-            begin
-                regfile[instruction[11:9]] = regfile[instruction[8:6]] + instruction[4:0];
-            end
-            else begin
-                regfile[instruction[11:9]] = regfile[instruction[8:6]] + regfile[instruction[2:0]];
-            end
-        end
-        else if(instruction[15:12] == 4'b1001) begin //not
-            regfile[instruction[11:9]] = ~regfile[instruction[8:6]];
-        end
-        else if(instruction[15:12] == 4'b0100) begin //jsr
-            regfile[7] = PC + 1;
-            PC = instruction[10:0] + PC;
-        end
-        else if(instruction[15:12] == 4'b0000) begin //Br
-            if((Nf && instruction[11]) || (Pf && instruction[10]) || (Zf && instruction[9])) begin
-                PC = instruction[8:0] + PC;
-            end
-            else begin
-                PC = PC + 1;
-            end
-        end
-        else if(instruction[15:12] == 4'b0010) begin //ld
-            memAddrIn = instruction[8:0] + PC;
-            regfile[instruction[11:9]] = memDataIn;
-        end
-        else if(instruction[15:12] == 4'b0011) begin //st
-            memWE = 1;
-            memAddr = PC + instruction[8:0];
-            memDataIn = regfile[instruction[11:9]];
-        end
-        else if(instruction[15:12] == 4'b1100) begin //jmp or ret
-            PC = PC regfile[instruction[8:6]];
-        end
-        else begin
-            state <= 1;
-        end
+    typedef enum {fetch0, fetch1, fetch2, decode,
+    add0, //1
+    and0, //1
+    not0, //1
+    br0, //1
+    jmp0, //1
+    jsr0, jsr1, jsrr1 //this one is different
+    ret0, 
+    ld0,
+    ldi0, ldi1, ldi2, ldi3, ldi4, //5
+    ldr0, ldr1, ldr2, //3
+    lea0, //1
+    st0, st1, st2 //3
+    sti0, sti1, sti2, sti3, sti4, //5
+    str0, str1, str2, //3
+    trap0, trap1, trap2, //3
+    rti0 // not implemented
+    } State_t
+
+    always @(posedge clk) begin
+
+
+
+
     end
+
+    //always @(posedge clk)
+    //begin
+    //    memWE = 0;
+    //    if(instruction[15:12] == 4'b0101) begin //and
+    //        if (instruction[5])
+    //        begin
+    //            regfile[instruction[11:9]] = regfile[instruction[8:6]] & instruction[4:0];
+    //        end
+    //        else begin
+    //            regfile[instruction[11:9]] = regfile[instruction[8:6]] & regfile[instruction[2:0]];
+    //        end
+    //    end
+    //    else if(instruction[15:12] == 4'b0001) begin //add
+    //        if (instruction[5])
+    //        begin
+    //            regfile[instruction[11:9]] = regfile[instruction[8:6]] + instruction[4:0];
+    //        end
+    //        else begin
+    //            regfile[instruction[11:9]] = regfile[instruction[8:6]] + regfile[instruction[2:0]];
+    //        end
+    //    end
+    //    else if(instruction[15:12] == 4'b1001) begin //not
+    //        regfile[instruction[11:9]] = ~regfile[instruction[8:6]];
+    //    end
+    //    else if(instruction[15:12] == 4'b0100) begin //jsr
+    //        regfile[7] = PC + 1;
+    //        PC = instruction[10:0] + PC;
+    //    end
+    //    else if(instruction[15:12] == 4'b0000) begin //Br
+    //        if((Nf && instruction[11]) || (Pf && instruction[10]) || (Zf && instruction[9])) begin
+    //            PC = instruction[8:0] + PC;
+    //        end
+    //        else begin
+    //            PC = PC + 1;
+    //        end
+    //    end
+    //    else if(instruction[15:12] == 4'b0010) begin //ld
+    //        memAddrIn = instruction[8:0] + PC;
+    //        regfile[instruction[11:9]] = memDataIn;
+    //    end
+    //    else if(instruction[15:12] == 4'b0011) begin //st
+    //        memWE = 1;
+    //        memAddr = PC + instruction[8:0];
+    //        memDataIn = regfile[instruction[11:9]];
+    //    end
+    //    else if(instruction[15:12] == 4'b1100) begin //jmp or ret
+    //        PC = PC regfile[instruction[8:6]];
+    //    end
+    //    else begin
+    //        state <= 1;
+    //    end
+    //end
 
 endmodule

@@ -1,3 +1,4 @@
+
 class Checker;
     //finishes populates the verification packet with data from the golden model
     Verification vr;
