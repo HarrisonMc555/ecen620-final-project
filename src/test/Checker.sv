@@ -6,7 +6,7 @@ class Checker;
     GoldenLC3 gold_dut;
     Scoreboard scb;
 
-    function new(input mailbox #(Transaction) mbx_in, input mailbox #(Verification) mbx_out);
+    function new(input mailbox #(Transaction) mbx_in);
         this.mbx_in = mbx_in;
         this.mbx_out = mbx_out;
         gold_dut = new();
@@ -25,6 +25,7 @@ class Checker;
     endtask
 
     task wrap_up();
+        scb.display_scoreboard();
     endtask
 
     
