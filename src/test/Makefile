@@ -1,7 +1,6 @@
 harrison = 1
 
 sources = 
-sources += ../dut/dut_if.sv
 ifdef harrison
 sources += ../harrison/lc3.sv
 sources += ../harrison/controller.sv
@@ -10,6 +9,7 @@ sources += ../harrison/dut.sv
 else
 sources += $(wildcard ../dallin/*.sv)
 endif
+sources += dut_if.sv
 sources += assert_macros.sv
 sources += dut_asserts.sv
 sources += bindfiles.sv
