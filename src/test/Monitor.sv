@@ -31,6 +31,7 @@ class Monitor;
    task time_dut();
       int i;
       result = new();
+      @(negedge dif.reset);
       forever begin
          @(negedge dif.clk);
            result.cycles_taken++;
