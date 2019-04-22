@@ -66,7 +66,7 @@ class Scoreboard;
       compare_PC.compare("PC value", vr.dut_result.PC, vr.gold_result.PC);
       compare_writes.compare("times writen", vr.dut_result.write_count, vr.gold_result.write_count);
       for(i = 0; (i < vr.dut_result.write_count) && (i < vr.gold_result.write_count); i++) begin
-         compare_address.compare("write address", vr.dut_result.write_address[i], vr.gold_result.wriet_address[i]);
+         compare_address.compare("write address", vr.dut_result.write_address[i], vr.gold_result.write_address[i]);
          compare_data.compare("write data", vr.dut_result.write_data[i], vr.gold_result.write_data[i]);
       end
       for(i = 0; i < 8; i++) begin
