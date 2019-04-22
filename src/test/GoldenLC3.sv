@@ -148,7 +148,7 @@ class GoldenLC3;
          res.write_count = 1;
       end
       else if(opcode === STI) begin
-         res.cycles_take = 10;
+         res.cycles_taken = 10;
          res.write_data.push_back(regfile[dr]);
          res.write_count = 1;
          res.write_address.push_back(transaction.mem_data[0]);
@@ -165,7 +165,7 @@ class GoldenLC3;
          PC = transaction.mem_data[0];
       end
       else begin //NOP
-         res.cycles_take = 4;
+         res.cycles_taken = 4;
       end
       res.PC = PC;
       set_regs(res.regs);
