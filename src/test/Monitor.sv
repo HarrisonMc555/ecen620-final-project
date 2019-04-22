@@ -6,9 +6,9 @@ class Monitor;
    Transaction tr;
    Verification vr;
    //gets a transaction from the driver
-   //mailbox #(Transaction) mbx_in;
+   //mailbox #(Transaction) mbx_out;
    //this mailbox will pass along the verification object to the monitor
-   mailbox #(Verification) mbx_in;
+   mailbox #(Verification) mbx_out;
    event   dut_reset;
    //event dut_reset2;
    virtual dut_if dif;
@@ -17,13 +17,13 @@ class Monitor;
    LC3_result last_result;
 
    function new(
-                //input mailbox #(Transaction) mbx_in,
-                mailbox #(Verification) mbx_in,
+                //input mailbox #(Transaction) mbx_out,
+                mailbox #(Verification) mbx_out,
                 virtual dut_if dif,
                 event   dut_reset
                 );
-      //this.mbx_in = mbx_in;
-      this.mbx_in = mbx_in;
+      //this.mbx_out = mbx_out;
+      this.mbx_out = mbx_out;
       this.dut_reset = dut_reset;
       this.dif = dif;
    endfunction
@@ -59,7 +59,7 @@ class Monitor;
             last_result.Z_flag = top.dut.datapath.flagZ;
             vr.to_dut = tr;
             vr.dut_result = last_result;
-            mbx_in.put(vr);
+            mbx_out.put(vr);
             vr = new();
             -> dut_reset;
             //-> dut_reset2;
@@ -69,15 +69,15 @@ class Monitor;
 
 
 
-   task read_mail();
-      tr = new();
-      forever begin
-         mbx_in.get(tr);
-         vr = new();
-         //get the transaction out and store it in the verification packet
-         mbx_in.put(vr);
-      end
-   endtask
+   //task read_mail();
+   //   tr = new();
+   //   forever begin
+   //      //mbx_out.get(tr);
+   //      vr = new();
+   //      //get the transaction out and store it in the verification packet
+   //      mbx_out.put(vr);
+   //   end
+   //endtask
 
    task run();
       result = new();
