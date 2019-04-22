@@ -56,6 +56,7 @@ class GoldenLC3;
       logic [ 8:0] pcoffset9;
       logic [ 2:0] base_r;
       logic        jsr_sw;
+      logic [11:0] pcoffset11;
       logic [ 5:0] pcoffset6;
       logic [ 7:0] trapvect8;
       logic [15:0] ir;
