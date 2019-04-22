@@ -12,6 +12,7 @@ package lc3;
                               STATE_JSR0,
                               STATE_JSR1,
                               STATE_BR0,
+                              STATE_BR1,
                               STATE_LD0,
                               STATE_LD1,
                               STATE_LD2,

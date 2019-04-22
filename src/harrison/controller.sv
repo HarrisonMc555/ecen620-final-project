@@ -80,6 +80,7 @@ module controller (
         STATE_JSR0    : curStateJsr0;
         STATE_JSR1    : curStateJsr1;
         STATE_BR0     : curStateBr0;
+        STATE_BR1     : curStateBr1;
         STATE_LD0     : curStateLd0;
         STATE_LD1     : curStateLd1;
         STATE_LD2     : curStateLd2;
@@ -176,13 +177,17 @@ module controller (
 
    task curStateBr0;
       begin
+         /* Check for branch or not in nextStateBr0 */
+      end
+   endtask
+
+   task curStateBr1;
+      begin
          /* PC = PC + SEXT(PCoffset9) */
-         if (nMatches | zMatches | pMatches) begin
-            ldPC = 1'b1;
-            selPC = 2'b01;
-            selEAB1 = 1'b0;
-            selEAB2 = 2'b10;
-         end
+         ldPC = 1'b1;
+         selPC = 2'b01;
+         selEAB1 = 1'b0;
+         selEAB2 = 2'b10;
       end
    endtask
 
@@ -302,6 +307,7 @@ module controller (
         STATE_JSR0    : nextStateJsr0(nextState);
         STATE_JSR1    : nextStateJsr1(nextState);
         STATE_BR0     : nextStateBr0(nextState);
+        STATE_BR1     : nextStateBr1(nextState);
         STATE_LD0     : nextStateLd0(nextState);
         STATE_LD1     : nextStateLd1(nextState);
         STATE_LD2     : nextStateLd2(nextState);
@@ -388,6 +394,17 @@ module controller (
    endtask
 
    task nextStateBr0;
+      output state_t outNextState;
+      begin
+         if (nMatches | zMatches | pMatches) begin
+            outNextState = STATE_BR1;
+         end else begin
+            outNextState = STATE_FETCH0;
+         end
+      end
+   endtask
+
+   task nextStateBr1;
       output state_t outNextState;
       begin
          outNextState = STATE_FETCH0;
