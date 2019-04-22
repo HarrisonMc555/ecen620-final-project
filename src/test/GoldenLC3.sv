@@ -43,6 +43,7 @@ class GoldenLC3;
    endfunction;
 
    function LC3_result run(Transaction tr);
+      int i;
       logic [15:0] instruction;
       logic [ 3:0] opcode;
       logic [ 2:0] sr1;
@@ -178,6 +179,15 @@ class GoldenLC3;
       end
       else begin //NOP
          res.cycles_taken = 4;
+      end
+      if(tr.reset_clock_cycle <= res.cycles_taken) begin
+         PC = 0;
+         Pf = 0;
+         Zf = 0;
+         Nf = 0;
+         for(i=0; i<8; i++) begin
+            regfile[i] = 0;
+         end
       end
       res.PC = PC;
       set_regs(res.regs);

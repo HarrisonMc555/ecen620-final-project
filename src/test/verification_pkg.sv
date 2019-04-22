@@ -36,6 +36,10 @@ class Transaction;
       reset_clock_cycle inside {[0:10]};
    }
 
+   constraint no_reset {
+      is_reset == 0;
+   }
+
 endclass
 
 class LC3_result;
