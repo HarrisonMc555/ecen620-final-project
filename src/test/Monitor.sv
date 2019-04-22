@@ -51,7 +51,7 @@ class Monitor;
             last_result.PC = top.dut.PC; //dallin
             for(i = 0; i < 8; i++) begin
                //last_result.regs[i] = top.dut.datapath.registerFile[i]; //harrison
-               last_result.regs[i] = top.dut.registerFile.regs[i]; //dallin
+               last_result.regs[i] = top.dut.generalRegisterFile.regs[i]; //dallin
             end
             last_result.P_flag = top.dut.Pf; //dallin
             last_result.Z_flag = top.dut.Zf;
