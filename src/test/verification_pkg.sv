@@ -5,7 +5,8 @@ package verification_pkg;
 class Transaction;
 
    rand logic[15:0] instruction;
-
+   rand logic is_reset;
+   rand int reset_clock_cycle;
    logic[15:0] mem_data[$];
    
    function new(logic[15:0] instruction=16'h00);
@@ -31,10 +32,14 @@ class Transaction;
       };
    }
 
+   constraint valid_clock_cycle {
+      reset_clock_cycle inside {[0:10]};
+   }
+
 endclass
 
 class LC3_result;
-   int     cycles_taken = 0;
+   int          cycles_taken = 0;
    logic [15:0] regs[7:0];
    int          write_count;
    logic [15:0] write_address[$];

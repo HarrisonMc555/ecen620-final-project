@@ -3,7 +3,7 @@ import verification_pkg::Transaction;
 
 class GoldenLC3;
 
-   const logic[3:0] ADD  = 4'b0001;
+   const logic [3:0] ADD  = 4'b0001;
    const logic [3:0] AND  = 4'b0101;
    const logic [3:0] NOT  = 4'b1001;
    const logic [3:0] BR   = 4'b0000;
