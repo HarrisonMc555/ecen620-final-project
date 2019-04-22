@@ -108,7 +108,7 @@ class GoldenLC3;
       end
       else if(opcode === BR) begin
          res.cycles_taken = 7;
-         if((Nf && N_flag) || (Pf && P_flag) || (Zf && Z_flag)) begin
+         if((Nf && br_n) || (Pf && br_p) || (Zf && br_z)) begin
             PC = PC + pcoffset9;
          end
       end
