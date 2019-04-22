@@ -30,6 +30,7 @@ class Monitor;
 
    task time_dut();
       int i;
+      result = new();
       forever begin
          @(negedge dif.clk);
            result.cycles_taken++;
@@ -56,10 +57,10 @@ class Monitor;
             last_result.P_flag = top.dut.datapath.flagP; //harrison
             last_result.N_flag = top.dut.datapath.flagN;
             last_result.Z_flag = top.dut.datapath.flagZ;
+            vr = new();
             vr.to_dut = tr;
             vr.dut_result = last_result;
             mbx_out.put(vr);
-            vr = new();
             transactionDone.put(1);
          end
       end
@@ -78,8 +79,6 @@ class Monitor;
    //endtask
 
    task run();
-      result = new();
-      vr = new();
       time_dut();
    endtask
 
