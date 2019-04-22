@@ -51,12 +51,12 @@ class Monitor;
             for(i = 0; i < 8; i++) begin
                last_result.regs[i] = dut.regs[i];
             end
-            last_result.P_flag = top.dut.Pf; //dallin
-            last_result.Z_flag = top.dut.Zf;
-            last_result.N_flag = top.dut.Nf;
-            //last_result.P_flag = dut.flagP; //harrison
-            //last_result.N_flag = dut.flagN;
-            //last_result.Z_flag = dut.flagZ;
+            //last_result.P_flag = top.dut.Pf; //dallin
+            //last_result.Z_flag = top.dut.Zf;
+            //last_result.N_flag = top.dut.Nf;
+            last_result.P_flag = top.dut.datapath.flagP; //harrison
+            last_result.N_flag = top.dut.datapath.flagN;
+            last_result.Z_flag = top.dut.datapath.flagZ;
             vr.to_dut = tr;
             vr.dut_result = last_result;
             mbx_in.put(vr);
