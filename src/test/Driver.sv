@@ -6,6 +6,8 @@ class Driver;
    virtual dut_if dut_if;
    event transactionDone;
 
+   logic[15:0] mem_data = 0;
+
    function new(input mailbox #(Transaction) gen2drv,
                 input mailbox #(Transaction) drv2chk,
                 virtual       dut_if dut_if,
@@ -40,6 +42,12 @@ class Driver;
    task transmit(input Transaction trans);
       @(posedge dut_if.clk); // Cycle where IR is loaded into MAR
       // golden.memory[dut_if.address] = trans.instruction;
+      dut_if.dataToMemory = trans.instruction;
+      @(posedge dut_if.clk);  
+      mem_data = $urandom(); 
+      dut_if.dataToMemory = mem_data;
+      trans.mem_data.push_back(mem_data);
+      drv2chk.put(trans);
       @(transactionDone);
    endtask;
 
