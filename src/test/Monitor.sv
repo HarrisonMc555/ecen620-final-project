@@ -38,7 +38,7 @@ class Monitor;
             dif.writeEnable
             ) begin
             result.write_address.push_back(dif.address);
-            result.write_data.push_back(dif.dataFromMemory);
+            result.write_data.push_back(dif.dataToMemory);
             result.write_count++;
          end
          if(/*dut about to cycle conditions here*/
