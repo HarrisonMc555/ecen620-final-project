@@ -11,7 +11,7 @@ module top;
    end
    end 
 
-   clock_unit clock(clk);
+   //clock_unit clock(clk);
    test test(dut_if);
    dut dut(.clk(dut_if.clk),
            .reset(dut_if.reset),
