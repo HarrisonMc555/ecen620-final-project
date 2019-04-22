@@ -28,8 +28,8 @@ class comparator #(type T=bit[3:0]);
          instruction = "????????????????";
       end
       if (expected !== actual) begin
-         $display("%0t: ERROR instruction %0s, %20s: expected=0x%0h != actual=0x%0h", $time,
-                  instruction, name, expected, actual);
+         $display("%0t: ERROR instruction %0s, %20s: expected=0x%0h != actual=0x%0h (%0d != %0d)", 
+                  $time, instruction, name, expected, actual, expected, actual);
          num_errors++;
       end
    endfunction
