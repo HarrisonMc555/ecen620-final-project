@@ -21,7 +21,7 @@ class Driver;
    task run(int num_trans);
       // bit drop;
       Transaction trans;
-      reset();
+      //reset();
       //while (1); begin // not done
       repeat(num_trans)
          gen2drv.peek(trans);
@@ -32,9 +32,9 @@ class Driver;
       end
    endtask
 
-   task reset();
-      // Do nothing (?)
-   endtask;
+   //task reset();
+   //   // Do nothing (?)
+   //endtask;
 
    task wrap_up();
       // Do nothing
