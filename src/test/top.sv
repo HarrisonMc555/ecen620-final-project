@@ -1,13 +1,13 @@
 module top;
 
-   bit clk, rst_n;
+   //bit clk, rst_n;
    dut_if dut_if();
 
    initial begin
-   clk <= 0;
+   dut_if.clk <= 0;
    //period of 100ns;
    forever begin
-     #50ns clk <= ~clk;
+     #50ns dut_if.clk <= ~dut_if.clk;
    end
    end 
 
