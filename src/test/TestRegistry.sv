@@ -4,6 +4,7 @@ class TestRegistry;
 
    static function void register(string name, TestBase t);
       registry[name] = t;
+      $display("Registered Test %0s");
    endfunction
 
    static function TestBase get_test();
