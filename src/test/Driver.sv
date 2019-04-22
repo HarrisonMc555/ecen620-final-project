@@ -24,12 +24,11 @@ class Driver;
       //reset();
       //while (1); begin // not done
       repeat(num_trans) begin
-         //gen2drv.peek(trans);
-         //// foreach (cbs[i]) cbs[i].pre_tx(trans, drop);
-         //transmit(trans);
-         //// foreach (cbs[i]) cbs[i].post_tx(trans);
-         gen2drv.get(trans);
+         gen2drv.peek(trans);
+         // foreach (cbs[i]) cbs[i].pre_tx(trans, drop);
          transmit(trans);
+         // foreach (cbs[i]) cbs[i].post_tx(trans);
+         gen2drv.get(trans);
       end
    endtask
 
