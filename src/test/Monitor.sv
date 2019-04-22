@@ -8,7 +8,7 @@ class Monitor;
    //gets a transaction from the driver
    //mailbox #(Transaction) mbx_in;
    //this mailbox will pass along the verification object to the monitor
-   mailbox #(Verification) mbx_out;
+   mailbox #(Verification) mbx_in;
    event   dut_reset;
    //event dut_reset2;
    virtual dut_if dif;
@@ -18,12 +18,12 @@ class Monitor;
 
    function new(
                 //input mailbox #(Transaction) mbx_in,
-                mailbox #(Verification) mbx_out,
+                mailbox #(Verification) mbx_in,
                 virtual dut_if dif,
                 event   dut_reset
                 );
       //this.mbx_in = mbx_in;
-      this.mbx_out = mbx_out;
+      this.mbx_in = mbx_in;
       this.dut_reset = dut_reset;
       this.dif = dif;
    endfunction
@@ -59,7 +59,7 @@ class Monitor;
             //last_result.Z_flag = dut.flagZ;
             vr.to_dut = tr;
             vr.dut_result = last_result;
-            mbx_out.put(vr);
+            mbx_in.put(vr);
             vr = new();
             -> dut_reset;
             //-> dut_reset2;
@@ -75,7 +75,7 @@ class Monitor;
          mbx_in.get(tr);
          vr = new();
          //get the transaction out and store it in the verification packet
-         mbx_out.put(vr);
+         mbx_in.put(vr);
       end
    endtask
 
