@@ -104,8 +104,8 @@ class GoldenLC3;
       else if(opcode === NOT) begin
          res.cycles_taken = 5;
          set_npz(regfile[dr]);
-         regfile[dr] = ~(regfile[sr1])
-           end
+         regfile[dr] = ~(regfile[sr1]);
+      end
       else if(opcode === BR) begin
          res.cycles_taken = 7;
          if((Nf && N_flag) || (Pf && P_flag) || (Zf && Z_flag)) begin

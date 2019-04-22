@@ -63,3 +63,12 @@ defined, and I'm not sure what you were going for. If you could look at that I
 can try to make sure the front half all fits together.
 
 It looks like everything else is compiling right now.
+
+
+TODO:
+
+It looks like the only real problem is these missing signals:
+   - `N_flag`
+   - `P_flag`
+   - `Z_flag`
+   - `dst`
