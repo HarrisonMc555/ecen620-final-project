@@ -109,7 +109,7 @@ class GoldenLC3;
          regfile[dr] = ~(regfile[sr1]);
       end
       else if(opcode === BR) begin
-         res.cycles_taken = 7;
+         res.cycles_taken = 6;
          if((Nf && br_n) || (Pf && br_p) || (Zf && br_z)) begin
             PC = PC + pcoffset9;
          end
@@ -165,7 +165,7 @@ class GoldenLC3;
          res.write_address.push_back(tr.mem_data[0]);
       end
       else if(opcode === STR) begin
-         res.cycles_taken = 8;
+         res.cycles_taken = 7;
          res.write_count = 1;
          res.write_address.push_back(regfile[base_r] + pcoffset6);
          res.write_data.push_back(regfile[dr]);
