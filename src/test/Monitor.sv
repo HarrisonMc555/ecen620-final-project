@@ -48,7 +48,7 @@ class Monitor;
             last_result = result;
             result = new();
             //last_result.PC = top.dut.datapath.pcOut; //harrison
-            last_result.PC = top.dut.PC //dallin
+            last_result.PC = top.dut.PC; //dallin
             for(i = 0; i < 8; i++) begin
                //last_result.regs[i] = top.dut.datapath.registerFile[i]; //harrison
                last_result.regs[i] = top.dut.registerFile.regs[i]; //dallin
