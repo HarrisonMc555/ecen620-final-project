@@ -57,7 +57,7 @@ class Monitor;
             //last_result.P_flag = dut.flagP; //harrison
             //last_result.N_flag = dut.flagN;
             //last_result.Z_flag = dut.flagZ;
-            last_result.to_dut = tr;
+            vr.to_dut = tr;
             vr.dut_result = last_result;
             mbx_out.put(vr);
             vr = new();
