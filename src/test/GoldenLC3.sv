@@ -113,7 +113,7 @@ class GoldenLC3;
          end
       end
       else if(opcode === JMP) begin //also RET
-         PC = regfile[dst];
+         PC = regfile[dr];
       end
       else if(opcode === JSR) begin //aslo JSRR
       end
@@ -139,7 +139,7 @@ class GoldenLC3;
       end
       else if(opcode === LEA) begin
          set_npz(regfile[dr]);
-         regfile[dst] = PC + pcoffset9;
+         regfile[dr] = PC + pcoffset9;
       end
       else if(opcode === ST) begin
          res.cycles_taken = 7;
