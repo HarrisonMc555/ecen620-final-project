@@ -25,6 +25,7 @@ class Checker;
       LC3_result res;
       scb = new();
       vr = new();
+      tr = new();
       forever begin
          mbx_tr.get(tr);
          mbx_vr.get(vr);
