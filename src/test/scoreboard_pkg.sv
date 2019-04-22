@@ -20,9 +20,16 @@ package scoreboard_pkg;
    // Parameterized class to do compare
 class comparator #(type T=bit[3:0]);
    static int num_errors = 0;
-   function void compare(input string name, input T actual, input T expected);
+   function void compare(input Verification vr, input string name, input T actual, input T expected);
+      string  instruction;
+      if (vr != null && vr.to_dut != null) begin
+         instruction = $sformatf("instruction = %16b:", vr.to_dut.instruction);
+      end else begin
+         instruction = "????????????????";
+      end
       if (expected !== actual) begin
-         $display("%0t: ERROR for %s, expected=0x%0h != actual=0x%0h", $time, name, expected, actual);
+         $display("%0t: ERROR instruction %0s, %20s: expected=0x%0h != actual=0x%0h", $time,
+                  instruction, name, expected, actual);
          num_errors++;
       end
    endfunction
@@ -55,22 +62,16 @@ class Scoreboard;
    // Compare the expected values of the version, ihl, total length, and the header checksum
    function void compare_expected(input Verification vr);
       int     i;
-      string  prefix;
-      if (vr != null && vr.to_dut != null) begin
-         prefix = $sformatf("For %0h:", vr.to_dut.instruction);
-      end else begin
-         prefix = "???";
-      end
       num_compared++;
-      compare_clocks.compare($sformatf("%0s cycles to complete", prefix), vr.dut_result.cycles_taken, vr.gold_result.cycles_taken);
-      compare_PC.compare($sformatf("%0s PC value", prefix), vr.dut_result.PC, vr.gold_result.PC);
-      compare_writes.compare($sformatf("%0s times writen", prefix), vr.dut_result.write_count, vr.gold_result.write_count);
+      compare_clocks.compare(vr, "cycles to complete", vr.dut_result.cycles_taken, vr.gold_result.cycles_taken);
+      compare_PC.compare(vr, "PC value", vr.dut_result.PC, vr.gold_result.PC);
+      compare_writes.compare(vr, "times writen", vr.dut_result.write_count, vr.gold_result.write_count);
       for(i = 0; (i < vr.dut_result.write_count) && (i < vr.gold_result.write_count); i++) begin
-         compare_address.compare($sformatf("%0s write address", prefix), vr.dut_result.write_address[i], vr.gold_result.write_address[i]);
-         compare_data.compare($sformatf("%0s write data", prefix), vr.dut_result.write_data[i], vr.gold_result.write_data[i]);
+         compare_address.compare(vr, "write address", vr.dut_result.write_address[i], vr.gold_result.write_address[i]);
+         compare_data.compare(vr, "write data", vr.dut_result.write_data[i], vr.gold_result.write_data[i]);
       end
       for(i = 0; i < 8; i++) begin
-         compare_regs.compare($sformatf("%0s register %0d", prefix, i), vr.dut_result.regs[i], vr.gold_result.regs[i]);
+         compare_regs.compare(vr, $sformatf("register %0d", i), vr.dut_result.regs[i], vr.gold_result.regs[i]);
       end
    endfunction // compare_expected
 
