@@ -22,13 +22,13 @@ class comparator #(type T=bit[3:0]);
    static int num_errors = 0;
    function void compare(input string name, input T actual, input T expected);
       if (expected !== actual) begin
-         $display("%0t: ERROR for %s, expected=0x%0h != actual=0x%0h", $time, name, expected, actual);
+         $display("%0t: ERROR for %s, instruction %d, expected=0x%0h != actual=0x%0h", $time, name, expected, actual);
          num_errors++;
       end
    endfunction
    function void compare_number(input string name, int number, input T actual, input T expected);
       if (expected !== actual) begin
-         $display("%0t: ERROR for %s number %0d, expected=0x%0h != actual=0x%0h", $time, name, number, expected, actual);
+         $display("%0t: ERROR for %s, instruction %d, number %0d, expected=0x%0h != actual=0x%0h", $time, name, number, expected, actual);
          num_errors++;
       end
    endfunction
