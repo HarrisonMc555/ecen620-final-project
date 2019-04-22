@@ -20,7 +20,7 @@ class Driver;
 
    task run(int num_trans);
       // bit drop;
-      Transaction trans;
+      Transaction trans = new();
       //reset();
       //while (1); begin // not done
       repeat(num_trans) begin
