@@ -19,10 +19,7 @@ class Driver;
    endfunction
 
    task run(int num_trans);
-      // bit drop;
       Transaction trans = new();
-      //reset();
-      //while (1); begin // not done
       repeat(num_trans) begin
          gen2drv.peek(trans);
          // foreach (cbs[i]) cbs[i].pre_tx(trans, drop);
@@ -31,10 +28,6 @@ class Driver;
          gen2drv.get(trans);
       end
    endtask
-
-   //task reset();
-   //   // Do nothing (?)
-   //endtask;
 
    task wrap_up();
       // Do nothing
