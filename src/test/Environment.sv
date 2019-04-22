@@ -34,7 +34,8 @@ class Environment;
    function void build();
       // Initialize mailboxes
       gen2drv = new(1);
-
+      drv2chk = new();
+      mon2chk = new();
       // Initialize "transactors"
       gen = new(gen2drv);
       drv = new(gen2drv, drv2chk, dif, transactionDone);
