@@ -5,7 +5,7 @@ module dut
    output bit [15:0] address,      //is this the same as memory address
    output bit        writeEnable); //is this the same as writeMemory?
 
-   logic [15:0] ir, dataToMemory, memoryAddress;
+   logic [15:0] ir, memoryAddress;
    logic flagN, flagZ, flagP, writeMemory;
    logic enaMARM, selMAR, enaPC, ldPC, regWE, enaMDR,
           ldMAR, ldMDR, memWE, selMDR, enaALU, ldIR, selEAB1,
