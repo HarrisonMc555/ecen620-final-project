@@ -18,7 +18,7 @@ class Environment;
    mailbox #(Verification) mon2chk;
    event   transactionDone;
 
-   function new(virtual dif dif);
+   function new(virtual dut_if dif);
       this.dif = dif;
       // cfg = new();
       // cfg.constraint_mode(0);

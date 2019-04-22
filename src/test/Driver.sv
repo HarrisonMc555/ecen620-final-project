@@ -2,13 +2,18 @@ class Driver;
 
    // Driver_cbs cbs[$];
    mailbox #(Transaction) gen2drv;
+   mailbox #(Transaction) drv2chk;
    virtual dut_if dut_if;
    event transactionDone;
 
-   function new(input mailbox #(Transaction) gen2drv, virtual dut_if dut_if, 
-                event transactionDone);
+   function new(input mailbox #(Transaction) gen2drv,
+                input mailbox #(Transaction) drv2chk,
+                virtual       dut_if dut_if,
+                event         transactionDone);
       this.gen2drv = gen2drv;
+      this.drv2chk = drv2chk;
       this.dut_if = dut_if;
+      this.transactionDone = transactionDone;
    endfunction
 
    task run(int num_trans);
