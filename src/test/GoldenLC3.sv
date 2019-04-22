@@ -180,7 +180,7 @@ class GoldenLC3;
       else begin //NOP
          res.cycles_taken = 4;
       end
-      if(tr.reset_clock_cycle <= res.cycles_taken) begin
+      if(tr.is_reset && tr.reset_clock_cycle <= res.cycles_taken) begin
          PC = 0;
          Pf = 0;
          Zf = 0;
