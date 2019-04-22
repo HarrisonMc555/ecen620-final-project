@@ -47,9 +47,9 @@ class Monitor;
             ) begin
             last_result = result;
             result = new();
-            last_result.PC = top.dut.datapath.PC; //harrison
+            last_result.PC = top.dut.datapath.pcOut; //harrison
             for(i = 0; i < 8; i++) begin
-               last_result.regs[i] = dut.regs[i];
+               last_result.regs[i] = top.dut.datapath.regs[i]; //harrison
             end
             //last_result.P_flag = top.dut.Pf; //dallin
             //last_result.Z_flag = top.dut.Zf;
