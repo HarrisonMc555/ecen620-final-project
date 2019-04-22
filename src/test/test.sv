@@ -7,8 +7,8 @@ program automatic test(dut_if.Memory dut_if);
       // static TestGood TestGood_handle = new();
       // static Test_v3 Test_v3_handle = new();
       // static TestBad TestBad_handle = new();
-      TestRandomGood trg = new();
-      TestWithBad twb = new();
+      static TestRandomGood trg = new();
+      static TestWithBad twb = new();
       tb = TestRegistry::get_test();
       tb.run_test();
    end
