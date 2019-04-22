@@ -22,7 +22,8 @@ class Driver;
       // bit drop;
       Transaction trans;
       reset();
-      while (1); begin // not done
+      //while (1); begin // not done
+      repeat(num_trans)
          gen2drv.peek(trans);
          // foreach (cbs[i]) cbs[i].pre_tx(trans, drop);
          transmit(trans);
