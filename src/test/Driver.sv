@@ -3,18 +3,18 @@ class Driver;
    // Driver_cbs cbs[$];
    mailbox #(Transaction) gen2drv;
    mailbox #(Transaction) drv2chk;
-   virtual dut_if dut_if;
+   virtual dut_if dif;
    event transactionDone;
 
    logic[15:0] mem_data = 0;
 
    function new(input mailbox #(Transaction) gen2drv,
                 input mailbox #(Transaction) drv2chk,
-                virtual       dut_if dut_if,
+                virtual       dif dif,
                 event         transactionDone);
       this.gen2drv = gen2drv;
       this.drv2chk = drv2chk;
-      this.dut_if = dut_if;
+      this.dif = dif;
       this.transactionDone = transactionDone;
    endfunction
 
@@ -41,12 +41,12 @@ class Driver;
    endtask
 
    task transmit(input Transaction trans);
-      @(posedge dut_if.clk); // Cycle where IR is loaded into MAR
-      // golden.memory[dut_if.address] = trans.instruction;
-      dut_if.dataToMemory = trans.instruction;
-      @(posedge dut_if.clk);  
+      @(posedge dif.clk); // Cycle where IR is loaded into MAR
+      // golden.memory[dif.address] = trans.instruction;
+      dif.dataToMemory = trans.instruction;
+      @(posedge dif.clk);  
       mem_data = $urandom(); 
-      dut_if.dataToMemory = mem_data;
+      dif.dataToMemory = mem_data;
       trans.mem_data.push_back(mem_data);
       drv2chk.put(trans);
       @(transactionDone);
