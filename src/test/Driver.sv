@@ -23,7 +23,7 @@ class Driver;
       Transaction trans;
       //reset();
       //while (1); begin // not done
-      repeat(num_trans)
+      repeat(num_trans) begin
          gen2drv.peek(trans);
          // foreach (cbs[i]) cbs[i].pre_tx(trans, drop);
          transmit(trans);
