@@ -36,10 +36,10 @@ class Driver;
    task transmit(input Transaction trans);
       @(posedge dif.clk); // Cycle where IR is loaded into MAR
       // golden.memory[dif.address] = trans.instruction;
-      dif.dataToMemory = trans.instruction;
+      dif.dataFromMemory = trans.instruction;
       @(posedge dif.clk);  
       mem_data = $urandom(); 
-      dif.dataToMemory = mem_data;
+      dif.dataFromMemory = mem_data;
       trans.mem_data.push_back(mem_data);
       drv2chk.put(trans);
       @(transactionDone);
