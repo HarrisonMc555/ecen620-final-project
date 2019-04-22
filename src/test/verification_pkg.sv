@@ -5,6 +5,8 @@ package verification_pkg;
 class Transaction;
 
    rand logic[15:0] instruction;
+
+   logic[15:0] mem_data[$];
    
    function new(logic[15:0] instruction=16'h00);
       this.instruction = instruction;
