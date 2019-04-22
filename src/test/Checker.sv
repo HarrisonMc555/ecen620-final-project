@@ -31,6 +31,7 @@ class Checker;
          mbx_vr.get(vr);
          res = gold_dut.run(tr);
          vr.gold_result = res;
+         vr.to_dut = tr;
          scb.compare_expected(vr);
       end
    endtask
