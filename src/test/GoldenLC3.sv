@@ -76,8 +76,8 @@ class GoldenLC3;
       jsr_sw      = ir[11]; //0: jsrr, 1: jsr
       pcoffset6   = ir[ 5: 0];
       pcoffset9   = ir[ 8: 0];
-      pcoffset11  = ir[10:0];
-      trapvect8   = ir[ 9: 0];
+      pcoffset11  = ir[10: 0];
+      trapvect8   = ir[ 7: 0];
 
       PC = PC + 1;
 
