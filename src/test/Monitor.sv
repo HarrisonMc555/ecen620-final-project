@@ -42,18 +42,18 @@ class Monitor;
             result.write_count++;
          end
          if(/*dut about to cycle conditions here*/
-            dut.controller.nextState === lc3::STATE_FETCH0 //harrison
+            top.dut.controller.nextState === lc3::STATE_FETCH0 //harrison
             //dut.state === 0 //dallin
             ) begin
             last_result = result;
             result = new();
-            last_result.PC = dut.PC;
+            last_result.PC = top.dut.PC;
             for(i = 0; i < 8; i++) begin
                last_result.regs[i] = dut.regs[i];
             end
-            last_result.P_flag = dut.Pf; //dallin
-            last_result.Z_flag = dut.Zf;
-            last_result.N_flag = dut.Nf;
+            last_result.P_flag = top.dut.Pf; //dallin
+            last_result.Z_flag = top.dut.Zf;
+            last_result.N_flag = top.dut.Nf;
             //last_result.P_flag = dut.flagP; //harrison
             //last_result.N_flag = dut.flagN;
             //last_result.Z_flag = dut.flagZ;
