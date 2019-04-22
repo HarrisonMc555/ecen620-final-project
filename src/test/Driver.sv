@@ -61,6 +61,8 @@ class Driver;
                // Transaction finished before we could reset.
                // That's fine.
                transactionDone.get(bogus);
+               // I think we need another cycle here ???
+               @(posedge dif.clk);
                return;
             end
             @(posedge dif.clk);
@@ -79,6 +81,8 @@ class Driver;
          dif.dataFromMemory = mem_data;
          trans.mem_data.push_back(mem_data);
          transactionDone.get(bogus);
+         // I think we need another cycle here ???
+         @(posedge dif.clk);
       end
    endtask;
 
