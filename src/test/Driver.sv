@@ -10,7 +10,7 @@ class Driver;
 
    function new(input mailbox #(Transaction) gen2drv,
                 input mailbox #(Transaction) drv2chk,
-                virtual       dif dif,
+                virtual       dut_if dif,
                 event         transactionDone);
       this.gen2drv = gen2drv;
       this.drv2chk = drv2chk;
