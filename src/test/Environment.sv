@@ -1,6 +1,8 @@
 `include "macros.sv"
 
 // import scoreboard_pkg::Scoreboard;
+import verification_pkg::Transaction;
+import verification_pkg::Verification;
 
 class Environment;
 
@@ -14,7 +16,7 @@ class Environment;
    mailbox #(Transaction) gen2drv;
    mailbox #(Transaction) drv2chk;
    mailbox #(Verification) mon2chk;
-   event transactionDone;
+   event   transactionDone;
 
    function new(virtual dif dif);
       this.dif = dif;

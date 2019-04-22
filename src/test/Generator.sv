@@ -1,6 +1,6 @@
 `include "macros.sv"
 
-// import Transaction;
+import verification_pkg::Transaction;
 
 class Generator;
 

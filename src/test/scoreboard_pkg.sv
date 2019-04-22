@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////////////////
-// Purpose: Package that defines the scoreboard for 
+// Purpose: Package that defines the scoreboard for
 //          Chap_8_Advanced_OOP_and_Testbench_Guidelines/homework_solution
 // Author: Greg Tumbush
 //
@@ -15,8 +15,8 @@
 
 package scoreboard_pkg;
 
-   import Verification_pkg::*;
-   
+   import verification_pkg::*;
+
    // Parameterized class to do compare
 class comparator #(type T=bit[3:0]);
    static int num_errors = 0;
@@ -25,7 +25,7 @@ class comparator #(type T=bit[3:0]);
          $display("%0t: ERROR for %s, expected=0x%0h != actual=0x%0h", $time, name, expected, actual);
          num_errors++;
       end
-   endfunction   
+   endfunction
    function void compare_number(input string name, int number, input T actual, input T expected);
       if (expected !== actual) begin
          $display("%0t: ERROR for %s number %0d, expected=0x%0h != actual=0x%0h", $time, name, number, expected, actual);
@@ -60,13 +60,13 @@ class Scoreboard;
 
    // Compare the expected values of the version, ihl, total length, and the header checksum
    function void compare_expected(input Verification vr);
-      int i;
+      int     i;
       num_compared++;
       compare_clocks.compare("cycles to complete", vr.dut_result.cycles_taken, vr.gold_result.cycles_taken);
       compare_PC.compare("PC value", vr.dut_result.PC, vr.gold_result.PC);
       compare_writes.compare("times writen", vr.dut_result.write_count, vr.gold_result.write_count);
       for(i = 0; (i < vr.dut_result.write_count) && (i < vr.gold_result.write_count); i++) begin
-         compare_address.compare("write address", vr.dut_result.write_address[i], vr.gold_result.wriet_address[i])
+         compare_address.compare("write address", vr.dut_result.write_address[i], vr.gold_result.wriet_address[i]);
          compare_data.compare("write data", vr.dut_result.write_data[i], vr.gold_result.write_data[i]);
       end
       for(i = 0; i < 8; i++) begin
