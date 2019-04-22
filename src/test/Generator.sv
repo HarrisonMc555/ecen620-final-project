@@ -18,7 +18,7 @@ class Generator;
       Transaction trans;
       repeat (num_trans) begin
          `SV_RAND_CHECK(blueprint.randomize());
-         gen2drv.put(trans);
+         gen2drv.put(trans.copy());
       end
    endtask
 
