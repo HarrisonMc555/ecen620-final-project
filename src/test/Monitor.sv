@@ -32,7 +32,7 @@ class Monitor;
    task time_dut();
       int i;
       forever begin
-         @(dif.cb)
+         @(negedge dif.clk);
            result.cycles_taken++;
          if(/*dut memory write conditions here*/
             dif.writeEnable
