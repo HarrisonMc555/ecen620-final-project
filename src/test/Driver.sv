@@ -78,7 +78,7 @@ class Driver;
          mem_data = $urandom();
          dif.dataFromMemory = mem_data;
          trans.mem_data.push_back(mem_data);
-         @(transactionDone);
+         transactionDone.get(bogus);
       end
    endtask;
 
