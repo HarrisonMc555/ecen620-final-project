@@ -1,4 +1,4 @@
-harrison = 1
+#harrison = 1
 
 sources = 
 sources += ../dut/dut_if.sv

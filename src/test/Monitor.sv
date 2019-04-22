@@ -42,21 +42,23 @@ class Monitor;
             result.write_count++;
          end
          if(/*dut about to cycle conditions here*/
-            top.dut.controller.nextState === lc3::STATE_FETCH0 //harrison
-            //dut.state === 0 //dallin
+            //top.dut.controller.nextState === lc3::STATE_FETCH0 //harrison
+            top.dut.state === 0 //dallin
             ) begin
             last_result = result;
             result = new();
-            last_result.PC = top.dut.datapath.pcOut; //harrison
+            //last_result.PC = top.dut.datapath.pcOut; //harrison
+            last_result.PC = top.dut.PC //dallin
             for(i = 0; i < 8; i++) begin
-               last_result.regs[i] = top.dut.datapath.registerFile[i]; //harrison
+               //last_result.regs[i] = top.dut.datapath.registerFile[i]; //harrison
+               last_result.regs[i] = top.dut.registerFile.regs[i]; //dallin
             end
-            //last_result.P_flag = top.dut.Pf; //dallin
-            //last_result.Z_flag = top.dut.Zf;
-            //last_result.N_flag = top.dut.Nf;
-            last_result.P_flag = top.dut.datapath.flagP; //harrison
-            last_result.N_flag = top.dut.datapath.flagN;
-            last_result.Z_flag = top.dut.datapath.flagZ;
+            last_result.P_flag = top.dut.Pf; //dallin
+            last_result.Z_flag = top.dut.Zf;
+            last_result.N_flag = top.dut.Nf;
+            //last_result.P_flag = top.dut.datapath.flagP; //harrison
+            //last_result.N_flag = top.dut.datapath.flagN;
+            //last_result.Z_flag = top.dut.datapath.flagZ;
             vr.to_dut = tr;
             vr.dut_result = last_result;
             mbx_out.put(vr);

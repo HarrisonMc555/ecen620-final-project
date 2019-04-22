@@ -75,15 +75,15 @@ Instructions to implement:
         4'opcode, 000, 111, 000000
 */
 
-module dut(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn, memDataOut);
+module dut(/*ldMAR, ldMDR, */clk, reset, writeEnable, /*selMDR, */address, dataToMemory, dataFromMemory);
     input clk, reset;
-    output memWE;
-    output [15:0] memAddrIn, memDataIn;
-    input [15:0] memDataOut;
+    output writeEnable;
+    output [15:0] address, dataToMemory;
+    input [15:0] dataFromMemory;
     logic clk, reset;
-    logic memWE, selMDR;
-    logic [15:0] memAddrIn, memDataIn;
-    logic [15:0] memDataOut;
+    logic writeEnable, selMDR;
+    logic [15:0] address, dataToMemory;
+    logic [15:0] dataFromMemory;
     //input logic ldMAR, ldMDR;
     logic [15:0] bus;
     logic [ 2:0] DR, SR1, SR2;
@@ -104,9 +104,9 @@ module dut(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn
     enum integer {FETCH=0, DECODE=1, EXECUTE=2} state;//0 fetch 1 decode 2 execute
     always_ff @(posedge clk)
     begin
-        memAddrIn <= PC;
-        memDataIn <= 0;
-        memWE <= 0;
+        address <= PC;
+        dataToMemory <= 0;
+        writeEnable <= 0;
         regWE <= 0;
         bus <= 0;
         DR <= DR;
@@ -121,7 +121,7 @@ module dut(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn
         // Pf = Pf;
         if(state == FETCH)  //fetch
         begin
-            instruction <= memDataOut;
+            instruction <= dataFromMemory;
             state <= DECODE;
         end
         //else if (state == 1)
@@ -179,7 +179,7 @@ module dut(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn
                 write_reg <= 1;
                 write_mem <= 0;
                 DR <= instruction[11:9];
-                memAddrIn <= instruction[8:0] + PC;
+                address <= instruction[8:0] + PC;
                 state <= EXECUTE;
             end
             else if(instruction[15:12] == 4'b0011) begin //st
@@ -200,7 +200,7 @@ module dut(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn
         end
         else if(state == EXECUTE)  //execute
         begin
-            memWE <= write_mem;
+            writeEnable <= write_mem;
             regWE <= write_reg;
             
             if(instruction[15:12] == 4'b0101) begin //and
@@ -248,12 +248,12 @@ module dut(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn
                 PC <= PC + 1;
             end
             else if(instruction[15:12] == 4'b0010) begin //ld
-                bus <= memDataOut;
+                bus <= dataFromMemory;
                 PC <= PC + 1;
             end
             else if(instruction[15:12] == 4'b0011) begin //st
-                memDataIn <= Ra;
-                memAddrIn <= PC + instruction[8:0];
+                dataToMemory <= Ra;
+                address <= PC + instruction[8:0];
                 PC <= PC + 1;
             end
             else if(instruction[15:12] == 4'b1100) begin //jmp or ret
