@@ -5,7 +5,7 @@ module top;
 
    initial begin
    dut_if.clk <= 0;
-   dut_ir.reset <= 0;
+   dut_if.reset <= 0;
    //period of 100ns;
    forever begin
      #50ns dut_if.clk <= ~dut_if.clk;
