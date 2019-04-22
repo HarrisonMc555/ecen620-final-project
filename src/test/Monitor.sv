@@ -9,8 +9,7 @@ class Monitor;
    //mailbox #(Transaction) mbx_out;
    //this mailbox will pass along the verification object to the monitor
    mailbox #(Verification) mbx_out;
-   event   dut_reset;
-   //event dut_reset2;
+   mailbox #(bit)          transactionDone;
    virtual dut_if dif;
 
    LC3_result result;
@@ -20,11 +19,11 @@ class Monitor;
                 //input mailbox #(Transaction) mbx_out,
                 mailbox #(Verification) mbx_out,
                 virtual dut_if dif,
-                event   dut_reset
+                mailbox #(bit) transactionDone
                 );
       //this.mbx_out = mbx_out;
       this.mbx_out = mbx_out;
-      this.dut_reset = dut_reset;
+      this.transactionDone = transactionDone;
       this.dif = dif;
    endfunction
 
@@ -61,8 +60,7 @@ class Monitor;
             vr.dut_result = last_result;
             mbx_out.put(vr);
             vr = new();
-            -> dut_reset;
-            //-> dut_reset2;
+            transactionDone.put(1);
          end
       end
    endtask;

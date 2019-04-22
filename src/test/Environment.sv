@@ -15,10 +15,10 @@ class Environment;
    Monitor mon;
    // Config cfg;
    // Scoreboard sb;
-   mailbox #(Transaction) gen2drv;
-   mailbox #(Transaction) drv2chk;
+   mailbox #(Transaction)  gen2drv;
+   mailbox #(Transaction)  drv2chk;
    mailbox #(Verification) mon2chk;
-   event   transactionDone;
+   mailbox #(bit)          transactionDone;
 
    function new(virtual dut_if dif);
       this.dif = dif;
@@ -34,8 +34,9 @@ class Environment;
    function void build();
       // Initialize mailboxes
       gen2drv = new(1);
-      drv2chk = new();
-      mon2chk = new();
+      drv2chk = new(1);
+      mon2chk = new(1);
+      transactionDone = new(1);
       // Initialize "transactors"
       gen = new(gen2drv);
       drv = new(gen2drv, drv2chk, dif, transactionDone);
