@@ -4,7 +4,7 @@ module top;
    dut_if dut_if();
 
    clock_unit clock(clk);
-   test test();
+   test test(dut_if);
    dut dut(.clk(dut_if.clk),
            .reset(dut_if.reset),
            .dataFromMemory(dut_if.dataFromMemory),
