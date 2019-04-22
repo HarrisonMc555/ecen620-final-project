@@ -120,22 +120,22 @@ class GoldenLC3;
       else if(opcode === LD) begin
          res.cycles_taken = 8;
          set_npz(regfile[dr]);
-         regfile[dr] = transaction.mem_data[0];
+         regfile[dr] = tr.mem_data[0];
       end
       else if(opcode === LDI) begin
          set_npz(regfile[dr]);
          res.cycles_taken = 9;
-         if($size(transaction.mem_data) > 1) begin
-            regfile[dr] = transaction.mem_data[1];
+         if($size(tr.mem_data) > 1) begin
+            regfile[dr] = tr.mem_data[1];
          end
          else begin
-            regfile[dr] = transaction.mem_data[0];
+            regfile[dr] = tr.mem_data[0];
          end
       end
       else if(opcode === LDR) begin
          res.cycles_taken = 8;
          set_npz(regfile[dr]);
-         regfile[dr] = transaction.mem_data[0];
+         regfile[dr] = tr.mem_data[0];
       end
       else if(opcode === LEA) begin
          set_npz(regfile[dr]);
@@ -151,7 +151,7 @@ class GoldenLC3;
          res.cycles_taken = 10;
          res.write_data.push_back(regfile[dr]);
          res.write_count = 1;
-         res.write_address.push_back(transaction.mem_data[0]);
+         res.write_address.push_back(tr.mem_data[0]);
       end
       else if(opcode === STR) begin
          res.cycles_taken = 8;
@@ -162,7 +162,7 @@ class GoldenLC3;
       else if(opcode === TRAP) begin
          res.cycles_taken = 7;
          regfile[7] = PC;
-         PC = transaction.mem_data[0];
+         PC = tr.mem_data[0];
       end
       else begin //NOP
          res.cycles_taken = 4;
