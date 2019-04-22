@@ -74,6 +74,7 @@ class GoldenLC3;
       pcoffset9   = ir[ 8: 0];
       base_r      = ir[ 8: 6];
       jsr_sw      = ir[11]; //0: jsrr, 1: jsr
+      pcoffset11  = ir[10:0];
       pcoffset6   = ir[ 5: 0];
       trapvect8   = ir[ 9: 0];
 
@@ -116,6 +117,15 @@ class GoldenLC3;
          PC = regfile[dr];
       end
       else if(opcode === JSR) begin //aslo JSRR
+         res.cycles_taken = 6;
+         if(jsr_sw) begin
+            regfile[7] = PC;
+            PC = PC + pcoffset11;
+         end
+         else begin
+            regfile[7] = PC;
+            PC = regfile[base_r];
+         end
       end
       else if(opcode === LD) begin
          res.cycles_taken = 8;
