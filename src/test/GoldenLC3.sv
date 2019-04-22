@@ -109,8 +109,9 @@ class GoldenLC3;
          regfile[dr] = ~(regfile[sr1]);
       end
       else if(opcode === BR) begin
-         res.cycles_taken = 6;
+         res.cycles_taken = 5;
          if((Nf && br_n) || (Pf && br_p) || (Zf && br_z)) begin
+            res.cycles_taken += 1;
             PC = PC + pcoffset9;
          end
       end
