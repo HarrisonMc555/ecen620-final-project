@@ -22,13 +22,8 @@ class comparator #(type T=bit[3:0]);
    static int num_errors = 0;
    function void compare(input string name, input T actual, input T expected);
       if (expected !== actual) begin
-         $display("%0t: ERROR for %s, instruction %d, expected=0x%0h != actual=0x%0h", $time, name, expected, actual);
-         num_errors++;
-      end
-   endfunction
-   function void compare_number(input string name, int number, input T actual, input T expected);
-      if (expected !== actual) begin
-         $display("%0t: ERROR for %s, instruction %d, number %0d, expected=0x%0h != actual=0x%0h", $time, name, number, expected, actual);
+         // $display("%0t: ERROR for %s, instruction %d, expected=0x%0h != actual=0x%0h", $time, name, expected, actual);
+         $display("%0t: ERROR for %s, expected=0x%0h != actual=0x%0h", $time, name, expected, actual);
          num_errors++;
       end
    endfunction
@@ -70,7 +65,7 @@ class Scoreboard;
          compare_data.compare("write data", vr.dut_result.write_data[i], vr.gold_result.write_data[i]);
       end
       for(i = 0; i < 8; i++) begin
-         compare_regs.compare_number("register", i, vr.dut_result.regs[i], vr.gold_result.regs[i]);
+         compare_regs.compare($sformatf("register %0d", i), vr.dut_result.regs[i], vr.gold_result.regs[i]);
       end
    endfunction // compare_expected
 
