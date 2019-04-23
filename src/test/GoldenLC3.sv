@@ -40,6 +40,11 @@ class GoldenLC3;
       Nf = alu_out[15];
       Pf = ~(alu_out[15]) && alu_out !== 16'h000;
       Zf = (alu_out === 16'h0000);
+      // $display("%0t set_npz", $time);
+      // $display("\tFlags:");
+      // $display("\t\tNf: %b", Nf);
+      // $display("\t\tZf: %b", Zf);
+      // $display("\t\tPf: %b", Pf);
    endfunction;
 
    function LC3_result run(Transaction tr);
@@ -86,31 +91,46 @@ class GoldenLC3;
 
       if(opcode === ADD) begin
          res.cycles_taken = 5;
-         set_npz(regfile[dr]);
+         // $display("%0t ADD:   dr  == %b", $time, dr);
+         // $display("  R[dr] == %b", regfile[dr]);
          if(imm_sw) begin
             regfile[dr] = regfile[sr1] + imm5;
          end
          else begin
             regfile[dr] = regfile[sr1] + regfile[sr2];
          end
+         set_npz(regfile[dr]);
       end
       else if(opcode === AND) begin
          res.cycles_taken = 5;
-         set_npz(regfile[dr]);
+         // $display("%0t AND:   dr  == %b", $time, dr);
+         // $display("  R[dr] == %b", regfile[dr]);
          if(imm_sw) begin
             regfile[dr] = regfile[sr1] & imm5;
          end
          else begin
             regfile[dr] = regfile[sr1] & regfile[sr2];
          end
+         set_npz(regfile[dr]);
       end
       else if(opcode === NOT) begin
          res.cycles_taken = 5;
-         set_npz(regfile[dr]);
+         // $display("%0t NOT:   dr  == %b", $time, dr);
+         // $display("  R[dr] == %b", regfile[dr]);
          regfile[dr] = ~(regfile[sr1]);
+         set_npz(regfile[dr]);
       end
       else if(opcode === BR) begin
          res.cycles_taken = 5;
+         // $display("%0t BR", $time);
+         // $display("\tFlags:");
+         // $display("\t\tNf: %b", Nf);
+         // $display("\t\tZf: %b", Zf);
+         // $display("\t\tPf: %b", Pf);
+         // $display("\tBranch if any of these flags are set:");
+         // $display("\t\tbr_n: %b", br_n);
+         // $display("\t\tbr_z: %b", br_z);
+         // $display("\t\tbr_p: %b", br_p);
          if((Nf && br_n) || (Pf && br_p) || (Zf && br_z)) begin
             res.cycles_taken += 1;
             PC = PC + pcoffset9;
