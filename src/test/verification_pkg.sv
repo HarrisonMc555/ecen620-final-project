@@ -23,13 +23,18 @@ class Transaction;
       ADD,
       AND,
       NOT,
-      JSR,
       BR,
+      JMP,
+      JSR,
       LD,
+      LDI,
+      LDR,
+      LEA,
       ST,
-      STR,
       STI,
-      JMP
+      STR,
+      TRAP,
+      RTI
       };
    }
 
