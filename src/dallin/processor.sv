@@ -341,7 +341,7 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
         end
         else if(state === STI1) begin
             state <= STI2;
-            memAddrin <= memDataOut;
+            memAddrIn <= memDataOut;
         end
         else if(state === TRAP1) begin
             state <= TRAP2;
