@@ -56,9 +56,9 @@ class GoldenLC3;
       logic        br_p;
       logic [ 2:0] base_r;
       logic        jsr_sw;
-      logic [10:0] pcoffset11;
-      logic [ 8:0] pcoffset9;
-      logic [ 5:0] pcoffset6;
+      logic [15:0] pcoffset11;
+      logic [15:0] pcoffset9;
+      logic [15:0] pcoffset6;
       logic [ 7:0] trapvect8;
       logic [15:0] ir;
 
@@ -75,9 +75,9 @@ class GoldenLC3;
       br_p        = ir[ 9];
       base_r      = ir[ 8: 6];
       jsr_sw      = ir[11]; //0: jsrr, 1: jsr
-      pcoffset6   = ir[ 5: 0];
-      pcoffset9   = ir[ 8: 0];
-      pcoffset11  = ir[10: 0];
+      pcoffset6   = {{10{ir[5]}}, ir[ 5: 0]};
+      pcoffset9   = {{7{ir[8]}}, ir[ 8: 0]};
+      pcoffset11  = {{5{ir[10]}}, ir[10: 0]};
       trapvect8   = ir[ 7: 0];
 
       PC = PC + 1;
