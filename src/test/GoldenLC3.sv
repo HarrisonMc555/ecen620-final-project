@@ -98,10 +98,10 @@ class GoldenLC3;
          res.cycles_taken = 5;
          set_npz(regfile[dr]);
          if(imm_sw) begin
-            regfile[dr] = regfile[sr1] + imm5;
+            regfile[dr] = regfile[sr1] & imm5;
          end
          else begin
-            regfile[dr] = regfile[sr1] + regfile[sr2];
+            regfile[dr] = regfile[sr1] & regfile[sr2];
          end
       end
       else if(opcode === NOT) begin
