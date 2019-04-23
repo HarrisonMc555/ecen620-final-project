@@ -26,7 +26,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
 
     logic Nf, Pf, Zf;
     logic [15:0] PC = 0;
-    logic [15:0] regs [8];
+    logic [15:0] regs [8] = {0,0,0,0,0,0,0,0};
 
     function void set_npz(logic[15:0] alu_out);
         Nf <= alu_out[15];
