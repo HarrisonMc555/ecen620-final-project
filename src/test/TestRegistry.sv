@@ -210,13 +210,55 @@ class AllBaseRegistersCb extends Checker_cbs;
    task post_tx(ref Transaction tr);
       opcode = tr.instruction[15:12];
       if (opcode == JSR && tr.instruction[11] == 1'b1) return;
-      unique case (opcode)
-        JMP     : src = tr.instruction[8:6];
-        JSR     : src = tr.instruction[8:6];
-        LDR     : src = tr.instruction[8:6];
-        STR     : src = tr.instruction[8:6];
-        default : src = 3'bXXX; // Let's see some red if we didn't do this right
-      endcase
+      src = tr.instruction[8:6];
+      cg.sample();
+   endtask
+
+   virtual function logic is_done();
+      return cg.get_coverage() == 100.0;
+   endfunction
+
+   virtual function real get_coverage;
+      return cg.get_coverage();
+   endfunction
+
+   virtual function string coverage_name();
+      return NAME;
+   endfunction
+endclass
+
+
+
+class AllDestinationsCb extends Checker_cbs;
+   logic [3:0] opcode;
+   logic [2:0] dst;
+   const string NAME = "All destinations";
+
+   covergroup cg;
+      coverpoint opcode {
+         bins valid_opcodes[] = {
+                                 ADD,
+                                 AND,
+                                 NOT,
+                                 LD,
+                                 LDI,
+                                 LDR,
+                                 LEA
+                                 };
+         
+      }
+      coverpoint dst;
+      cross opcode, dst;
+   endgroup
+
+   function new;
+      cg = new();
+      cg.set_inst_name(NAME);
+   endfunction
+
+   task post_tx(ref Transaction tr);
+      opcode = tr.instruction[15:12];
+      dst = tr.instruction[11:9];
       cg.sample();
    endtask
 
@@ -257,10 +299,12 @@ class TestRandomGood extends TestBase;
       AllSourcesCb cb2 = new();
       AllSecondSourcesCb cb3 = new();
       AllBaseRegistersCb cb4 = new();
+      AllDestinationsCb cb5 = new();
       env.chk.cbs.push_back(cb1);
       env.chk.cbs.push_back(cb2);
       env.chk.cbs.push_back(cb3);
       env.chk.cbs.push_back(cb4);
+      env.chk.cbs.push_back(cb5);
    endtask
 endclass
 
