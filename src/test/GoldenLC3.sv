@@ -22,6 +22,7 @@ class GoldenLC3;
    //const logic[3:0] RESERVERD = 4'b1101; //just a nop
 
    logic [15:0]      PC = 0;
+   logic [15:0]      lastPC;
    logic [15:0]      regfile [7:0] = {0,0,0,0,0,0,0,0};
    logic             Nf = 0;
    logic             Pf = 0;
@@ -39,7 +40,7 @@ class GoldenLC3;
    function void set_npz(logic[15:0] alu_out);
       Nf = alu_out[15];
       Pf = ~(alu_out[15]) && alu_out !== 16'h000;
-      Zf = (alu_out === 16'h0000);
+      Zf = alu_out === 16'h0000;
    endfunction;
 
    function LC3_result run(Transaction tr);
@@ -127,8 +128,9 @@ class GoldenLC3;
             PC = PC + pcoffset11;
          end
          else begin
+            lastPC = PC;
             regfile[7] = PC;
-            PC = regfile[base_r];
+            PC = lastPC;
          end
       end
       else if(opcode === LD) begin
@@ -163,7 +165,7 @@ class GoldenLC3;
          res.write_count = 1;
       end
       else if(opcode === STI) begin
-         res.cycles_taken = 10;
+         res.cycles_taken = 9;
          res.write_data.push_back(regfile[dr]);
          res.write_count = 1;
          res.write_address.push_back(tr.mem_data[0]);
