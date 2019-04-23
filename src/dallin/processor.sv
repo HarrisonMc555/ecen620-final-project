@@ -189,7 +189,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         else if(state === NOT0) begin
             state <= FETCH0;
             regs[dr] = ~regs[sr1];
-            set_npz(~regs[sr1]);
+            set_npz((~regs[sr1]));
         end
         else if(state === BR0) begin
             if((br_n & Nf) || (br_p & Pf) || (br_z & Zf)) begin
