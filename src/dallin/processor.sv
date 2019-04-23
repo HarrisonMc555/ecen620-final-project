@@ -152,7 +152,7 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
                     NOT0,
                     TRAP0, TRAP1, TRAP2,
                     LEA0,
-                    LD0, LD1, LD2
+                    LD0, LD1, LD2,
                     LDR0,   //GOES TO LD1 AFTER
                     LDI0, LDI1, LDI2, //GOES TO LD1 AFTER
                     ST0, ST1, ST2,
