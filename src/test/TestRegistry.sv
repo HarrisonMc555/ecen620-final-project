@@ -380,6 +380,51 @@ class AllInstructionsPrecededAndFollowed extends Checker_cbs;
 endclass
 
 
+class ResetAssertedDuringEveryCycleOfEveryInstruction extends Checker_cbs;
+   logic [3:0] opcode;
+   int         clock_cycle;
+   const string NAME = "Reset has been asserted during every clock cycle of every instruction";
+
+   covergroup cg;
+      option.per_instance = 1;
+      coverpoint opcode {
+         option.weight = 0;
+         option.goal = 0;
+      }
+      coverpoint clock_cycle {
+         option.weight = 0;
+         option.goal = 0;
+      }
+      cross opcode, clock_cycle;
+   endgroup
+
+   function new;
+      cg = new();
+      cg.set_inst_name(NAME);
+   endfunction
+
+   task post_tx(ref Transaction tr);
+      // Only interested in reset transactions
+      if (~tr.is_reset) return;
+      opcode = tr.instruction[15:12];
+      clock_cycle = tr.reset_clock_cycle;
+      cg.sample();
+   endtask
+
+   virtual function logic is_done();
+      return cg.get_coverage() == 100.0;
+   endfunction
+
+   virtual function real get_coverage;
+      return cg.get_coverage();
+   endfunction
+
+   virtual function string coverage_name();
+      return NAME;
+   endfunction
+endclass
+
+
 // TestBase instances //////////////////////////////////////////////////////////
 
 class TestRandomGood extends TestBase;
@@ -433,6 +478,40 @@ class TestRandomAll extends TestBase;
       env.gen.blueprint.valid_jsr_instruction_high_bits.constraint_mode(0);
       env.gen.blueprint.valid_jsr_instruction_low_bits.constraint_mode(0);
       env.gen.blueprint.valid_trap_instruction.constraint_mode(0);
+      env.run();
+      env.wrap_up();
+   endtask
+
+   task create_callbacks;
+      AllOpcodesCb cb1 = new();
+      AllSourcesCb cb2 = new();
+      AllSecondSourcesCb cb3 = new();
+      AllBaseRegistersCb cb4 = new();
+      AllDestinationsCb cb5 = new();
+      AllInstructionsPrecededAndFollowed cb6 = new();
+      env.chk.cbs.push_back(cb1);
+      env.chk.cbs.push_back(cb2);
+      env.chk.cbs.push_back(cb3);
+      env.chk.cbs.push_back(cb4);
+      env.chk.cbs.push_back(cb5);
+      env.chk.cbs.push_back(cb6);
+   endtask
+endclass
+
+
+class TestWithReset extends TestBase;
+
+   function new(virtual dut_if dut_if);
+      super.new(dut_if);
+      TestRegistry::register("TestWithReset", this);
+   endfunction
+
+   virtual task run_test();
+      $display("%m");
+      env.gen_cfg();
+      env.build();
+      create_callbacks();
+      env.gen.blueprint.no_reset.constraint_mode(0);
       env.run();
       env.wrap_up();
    endtask
