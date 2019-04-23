@@ -289,6 +289,7 @@ module controller (
          selMAR = 1'b0;
          selEAB1 = 1'b0;
          selEAB2 = 2'b10;
+         flagWE = 1'b1;
       end
    endtask
 
