@@ -94,9 +94,9 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         if (reset == 1) begin
             state = FETCH0;
             PC <= 0;
-            Nf <= 0;
-            Pf <= 0;
-            Zf <= 1;
+            Nf = 0;
+            Pf = 0;
+            Zf = 1;
             instruction <= 0;
             dataToMemory <= 0;
             writeEnable <= 0;
@@ -172,17 +172,17 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             if(imm_sw) begin
                 regs[dr] <= regs[sr1] + imm5;
                 alu_out = regs[sr1] + imm5;
-                Nf <= alu_out[15];
-                Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
-                Zf <= (alu_out === 16'h0000);
+                Nf = alu_out[15];
+                Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+                Zf = (alu_out === 16'h0000);
                 $display("%0h", alu_out); //set_npz(regs[sr1] + imm5, Nf, Pf, Zf);
             end
             else begin
                 regs[dr] <= regs[sr1] + regs[sr2];
                 alu_out = regs[sr1] + regs[sr2];
-                Nf <= alu_out[15];
-                Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
-                Zf <= (alu_out === 16'h0000);
+                Nf = alu_out[15];
+                Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+                Zf = (alu_out === 16'h0000);
                 $display("%0h", alu_out); //set_npz(regs[sr1] + regs[sr2], Nf, Pf, Zf);
             end
         end
@@ -191,17 +191,17 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             if(imm_sw) begin
                 regs[dr] <= regs[sr1] & imm5;
                 alu_out = regs[sr1] & imm5;
-                Nf <= alu_out[15];
-                Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
-                Zf <= (alu_out === 16'h0000);
+                Nf = alu_out[15];
+                Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+                Zf = (alu_out === 16'h0000);
                 $display("%0h", alu_out); //set_npz(regs[sr1] + regs[sr2], Nf, Pf, Zf);
             end
             else begin
                 regs[dr] <= regs[sr1] & regs[sr2];
                 alu_out = regs[sr1] & regs[sr2];
-                Nf <= alu_out[15];
-                Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
-                Zf <= (alu_out === 16'h0000);
+                Nf = alu_out[15];
+                Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+                Zf = (alu_out === 16'h0000);
                 $display("%0h", alu_out); //set_npz(regs[sr1] + regs[sr2], Nf, Pf, Zf);
             end
         end
@@ -209,9 +209,9 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             state <= FETCH0;
             regs[dr] = ~regs[sr1];
             alu_out = ~regs[sr1];
-            Nf <= alu_out[15];
-            Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
-            Zf <= (alu_out === 16'h0000);
+            Nf = alu_out[15];
+            Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+            Zf = (alu_out === 16'h0000);
             $display("%0h", alu_out); //set_npz((~regs[sr1]), Nf, Pf, Zf);
         end
         else if(state === BR0) begin
@@ -250,9 +250,9 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             state <= FETCH0;
             regs[dr] <= PC + pcoffset9;
             alu_out = PC + pcoffset9;
-            Nf <= alu_out[15];
-            Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
-            Zf <= (alu_out === 16'h0000);
+            Nf = alu_out[15];
+            Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+            Zf = (alu_out === 16'h0000);
             $display("%0h", alu_out); //set_npz(PC + pcoffset9, Nf, Pf, Zf);
         end
         else if(state === ST0) begin
@@ -291,9 +291,9 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             state <= LD2;
             regs[dr] <= dataFromMemory;
             alu_out = dataFromMemory;
-            Nf <= alu_out[15];
-            Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
-            Zf <= (alu_out === 16'h0000);
+            Nf = alu_out[15];
+            Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+            Zf = (alu_out === 16'h0000);
             $display("%0h", alu_out); //set_npz(dataFromMemory, Nf, Pf, Zf);
         end
         else if(state === LDI1) begin
