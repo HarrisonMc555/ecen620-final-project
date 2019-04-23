@@ -18,13 +18,13 @@ class Driver;
       this.transactionDone = transactionDone;
    endfunction
 
-   task run(int num_trans);
+   task run();
       Transaction trans = new();
       dif.reset = 1;
       repeat (5) @(posedge dif.clk);
       @(negedge dif.clk);
       dif.reset = 0;
-      repeat(num_trans) begin
+      forever begin
          gen2drv.peek(trans);
          // foreach (cbs[i]) cbs[i].pre_tx(trans, drop);
          // @(posedge dif.clk);

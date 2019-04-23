@@ -6,8 +6,6 @@ import verification_pkg::Verification;
 
 class Environment;
 
-   const int RUN_FOR_N_TRANS = 10000;
-
    virtual dut_if dif;
    Generator gen;
    Driver drv;
@@ -47,8 +45,8 @@ class Environment;
 
    task run();
       fork
-         gen.run(RUN_FOR_N_TRANS);
-         drv.run(RUN_FOR_N_TRANS);
+         gen.run();
+         drv.run();
          chk.run(); //TODO: add number of transactions? or just make below a join any.
          mon.run(); //TODO: add number of transactions? or just make below a join any.
       join

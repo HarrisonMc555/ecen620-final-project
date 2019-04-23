@@ -14,9 +14,9 @@ class Generator;
       // blueprint.header.turn_on_valid_constraints();
    endfunction
 
-   task run(input int num_trans = 10);
+   task run();
       Transaction trans;
-      repeat (num_trans) begin
+      forever begin
          `SV_RAND_CHECK(blueprint.randomize());
          gen2drv.put(blueprint.copy());
       end
