@@ -386,7 +386,7 @@ module controller (
 
    task curStateUnknown;
       begin
-         $display("ERROR: unknown state.");
+         if ($time > 0 && !reset) $display("%0t: ERROR: unknown state.", $time);
       end
    endtask
 
