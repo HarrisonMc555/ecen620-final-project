@@ -219,7 +219,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === JMP0) begin //also RET
             state = FETCH0;
-            PC = PC + regs[base_r];
+            PC = regs[base_r];
         end
         else if(state === JSR0) begin //aslo JSRR
             if(jsr_sw) begin
