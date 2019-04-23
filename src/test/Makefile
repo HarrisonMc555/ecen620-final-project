@@ -32,4 +32,4 @@ all: $(sources)
 	vlog -mfcu $^
 
 test: all
-	vsim -c top -do "run -all" +TESTNAME=$(+TESTNAME)
+	vsim top +TESTNAME=$(+TESTNAME)
