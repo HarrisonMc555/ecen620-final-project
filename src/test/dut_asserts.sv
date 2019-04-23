@@ -56,7 +56,7 @@ module dut_asserts
    property err_should_load_ir_after_fetch1;
       logic [15:0]  data;
       // 1 == FETCH1
-      @(posedge clk) ($root.top.dut.state == 1, data=dataFromMemory) |-> ##1 (ir === data); // dallin
+      @(posedge clk) disable iff(reset) ($root.top.dut.state == 1, data=dataFromMemory) |-> ##1 (ir === data); // dallin
       // @(posedge clk) ($root.top.dut.curState == STATE_FETCH1, data=dataFromMemory) |-> ##1 (ir === data); // harrison
    endproperty 
    ERR_SHOULD_LOAD_IR_AFTER_FETCH1:
