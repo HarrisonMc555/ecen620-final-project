@@ -85,6 +85,11 @@ class GoldenLC3;
 
       res.write_count = 0;
 
+      $display("%0t GoldenLC3", $time);
+      $display("\topcode:    %b", opcode);
+      $display("\tir:        %b", ir);
+      $display("\tpcoffset6: %b", pcoffset6);
+      
       if(opcode === ADD) begin
          res.cycles_taken = 5;
          if(imm_sw) begin
@@ -192,6 +197,7 @@ class GoldenLC3;
          for(i=0; i<8; i++) begin
             regfile[i] = 0;
          end
+         set_regs(res.regs);
          res.cycles_taken = tr.reset_clock_cycle;
       end
       res.PC = PC;
