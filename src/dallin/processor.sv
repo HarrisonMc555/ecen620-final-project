@@ -221,7 +221,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === LDR0) begin
             state <= LD1;
-            address <= base_r + pcoffset6;
+            address <= regs[base_r] + pcoffset6;
         end
         else if(state === LEA0) begin
             state <= FETCH0;
