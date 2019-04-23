@@ -27,8 +27,7 @@ class Transaction;
       BR,
       LD,
       ST,
-      JMP,
-      INV
+      JMP
       };
    }
 
