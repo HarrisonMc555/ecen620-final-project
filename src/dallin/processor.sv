@@ -77,11 +77,11 @@ Instructions to implement:
 
 
 
-module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
+module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
     input  logic        clk, reset;
-    output logic        memWE;
-    output logic [15:0] memAddrIn, memDataIn;
-    input  logic [15:0] memDataOut;
+    output logic        writeEnable;
+    output logic [15:0] address, dataToMemory;
+    input  logic [15:0] dataFromMemory;
 
     const logic [3:0] ADD  = 4'b0001;
     const logic [3:0] AND  = 4'b0101;
@@ -167,12 +167,12 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
     always @(posedge clk) begin
         if(state === FETCH0) begin
             state <= FETCH1;
-            memAddrIn <= PC;
+            address <= PC;
             PC <= PC + 1;
         end
         else if (state === FETCH1) begin
             state <= FETCH2;
-            instruction <= memDataIn;
+            instruction <= dataToMemory;
         end
         else if (state === FETCH2) begin
             state <= DECODE;
@@ -279,15 +279,15 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
         end
         else if(state === LD0) begin
             state <= LD1;
-            memAddrIn <= PC + pcoffset9;
+            address <= PC + pcoffset9;
         end
         else if(state === LDI0) begin
             state <= LDI1;
-            memAddrIn <= PC + pcoffset9;
+            address <= PC + pcoffset9;
         end
         else if(state === LDR0) begin
             state <= LD1;
-            memAddrIn <= base_r + pcoffset6;
+            address <= base_r + pcoffset6;
         end
         else if(state === LEA0) begin
             state <= FETCH0;
@@ -296,19 +296,19 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
         end
         else if(state === ST0) begin
             state <= ST1;
-            memAddrIn <= PC + pcoffset9;
+            address <= PC + pcoffset9;
         end
         else if(state === STI0) begin
             state <= STI1;
-            memAddrIn <= PC + pcoffset9;
+            address <= PC + pcoffset9;
         end
         else if(state === STR0) begin
             state <= ST1;
-            memAddrIn <= regs[base_r] + pcoffset6;
+            address <= regs[base_r] + pcoffset6;
         end
         else if(state === TRAP0) begin
             state <= TRAP1;
-            memAddrIn <= trapvect8;
+            address <= trapvect8;
         end
         ///////////////////////////////////////////////////////////////
         //SECOND EXECUTE STAGE
@@ -328,24 +328,24 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
         end
         else if(state === LD1) begin
             state <= LD2;
-            regs[dr] <= memDataIn;
-            set_npz(memDataIn);
+            regs[dr] <= dataToMemory;
+            set_npz(dataToMemory);
         end
         else if(state === LDI1) begin
             state <= LDI2;
-            memAddrIn <= memDataOut;
+            address <= dataFromMemory;
         end
         else if(state === ST1) begin
             state <= ST2;
-            memDataOut <= regs[sr1];
+            dataFromMemory <= regs[sr1];
         end
         else if(state === STI1) begin
             state <= STI2;
-            memAddrIn <= memDataOut;
+            address <= dataFromMemory;
         end
         else if(state === TRAP1) begin
             state <= TRAP2;
-            PC <= memDataIn;
+            PC <= dataToMemory;
         end
         //////////////////////////////////////////////////////////////
         //THIRD EXECUTE STATE
@@ -376,15 +376,15 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
 endmodule
 
 
-// module dut(/*ldMAR, ldMDR, */clk, reset, memWE, /*selMDR, */memAddrIn, memDataIn, memDataOut);
+// module dut(/*ldMAR, ldMDR, */clk, reset, writeEnable, /*selMDR, */address, dataToMemory, dataFromMemory);
 //     input clk, reset;
-//     output memWE;
-//     output [15:0] memAddrIn, memDataIn;
-//     input [15:0] memDataOut;
+//     output writeEnable;
+//     output [15:0] address, dataToMemory;
+//     input [15:0] dataFromMemory;
 //     logic clk, reset;
-//     logic memWE, selMDR;
-//     logic [15:0] memAddrIn, memDataIn;
-//     logic [15:0] memDataOut;
+//     logic writeEnable, selMDR;
+//     logic [15:0] address, dataToMemory;
+//     logic [15:0] dataFromMemory;
 //     //input logic ldMAR, ldMDR;
 //     logic [15:0] bus;
 //     logic [ 2:0] DR, SR1, SR2;
@@ -405,9 +405,9 @@ endmodule
 //     enum integer {FETCH=0, DECODE=1, EXECUTE=2} state;//0 fetch 1 decode 2 execute
 //     always_ff @(posedge clk)
 //     begin
-//         memAddrIn <= PC;
-//         memDataIn <= 0;
-//         memWE <= 0;
+//         address <= PC;
+//         dataToMemory <= 0;
+//         writeEnable <= 0;
 //         regWE <= 0;
 //         bus <= 0;
 //         DR <= DR;
@@ -422,7 +422,7 @@ endmodule
 //         // Pf = Pf;
 //         if(state == FETCH)  //fetch
 //         begin
-//             instruction <= memDataOut;
+//             instruction <= dataFromMemory;
 //             state <= DECODE;
 //         end
 //         //else if (state == 1)
@@ -480,7 +480,7 @@ endmodule
 //                 write_reg <= 1;
 //                 write_mem <= 0;
 //                 DR <= instruction[11:9];
-//                 memAddrIn <= instruction[8:0] + PC;
+//                 address <= instruction[8:0] + PC;
 //                 state <= EXECUTE;
 //             end
 //             else if(instruction[15:12] == 4'b0011) begin //st
@@ -501,7 +501,7 @@ endmodule
 //         end
 //         else if(state == EXECUTE)  //execute
 //         begin
-//             memWE <= write_mem;
+//             writeEnable <= write_mem;
 //             regWE <= write_reg;
             
 //             if(instruction[15:12] == 4'b0101) begin //and
@@ -549,12 +549,12 @@ endmodule
 //                 PC <= PC + 1;
 //             end
 //             else if(instruction[15:12] == 4'b0010) begin //ld
-//                 bus <= memDataOut;
+//                 bus <= dataFromMemory;
 //                 PC <= PC + 1;
 //             end
 //             else if(instruction[15:12] == 4'b0011) begin //st
-//                 memDataIn <= Ra;
-//                 memAddrIn <= PC + instruction[8:0];
+//                 dataToMemory <= Ra;
+//                 address <= PC + instruction[8:0];
 //                 PC <= PC + 1;
 //             end
 //             else if(instruction[15:12] == 4'b1100) begin //jmp or ret
