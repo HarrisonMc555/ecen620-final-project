@@ -75,12 +75,11 @@ class Transaction;
 
    constraint valid_clock_cycle {
       reset_clock_cycle inside {[1:10]};
-      // reset_clock_cycle < 10;
    }
 
-   // constraint no_reset {
-   //    is_reset == 0;
-   // }
+   constraint no_reset {
+      is_reset == 0;
+   }
 
 endclass
 
