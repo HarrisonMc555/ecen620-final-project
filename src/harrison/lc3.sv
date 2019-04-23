@@ -37,6 +37,7 @@ package lc3;
    const logic [3:0] OPCODE_LD  = 4'b0010;
    const logic [3:0] OPCODE_ST  = 4'b0011;
    const logic [3:0] OPCODE_STR = 4'b0111;
+   const logic [3:0] OPCODE_STI = 4'b1011;
    const logic [3:0] OPCODE_JMP = 4'b1100;
 
    /* ALU Control */

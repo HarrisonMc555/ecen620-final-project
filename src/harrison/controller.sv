@@ -86,6 +86,7 @@ module controller (
         STATE_LD2     : curStateLd2;
         STATE_ST0     : curStateSt0;
         STATE_STR0    : curStateStr0;
+        STATE_STI0    : curStateSti0;
         STATE_ALL_ST0 : curStateAllSt0;
         STATE_ALL_ST1 : curStateAllSt1;
         STATE_JMP0    : curStateJmp0;
@@ -204,8 +205,7 @@ module controller (
       begin
          /* DR = mem [ PC + SEXT(PCoffset9) ] */
          /* This state: MDR = mem [ MAR ] */
-         ldMDR = 1'b1;
-         selMDR = 1'b1;
+         curStateLoadMDR();
       end
    endtask
 
@@ -230,12 +230,37 @@ module controller (
    task curStateStr0;
       begin
          /* mem [ R[BaseR] + SEXT(PCoffset6) ] = R[SR] */
-         /* This state: MAR = R[BaseR] + SEXT(PCoffset9) */
+         /* This state: MAR = R[BaseR] + SEXT(PCoffset6) */
          ldMAR = 1'b1;
          enaMARM = 1'b1;
          selMAR = 1'b0;
          selEAB1 = 1'b1;
          selEAB2 = 2'b01;
+      end
+   endtask
+
+   task curStateSti0;
+      begin
+         /* mem [ mem [ PC + SEXT(PCoffset9) ] ] = R[SR] */
+         /* This state: MAR = PC + SEXT(PCoffset9) */
+         curStateLoadMARPCOffset9();
+      end
+   endtask
+
+   task curStateSti1;
+      begin
+         /* mem [ mem [ PC + SEXT(PCoffset9) ] ] = R[SR] */
+         /* This state: MDR = mem [ MAR ] */
+         curStateLoadMDR();
+      end
+   endtask
+
+   task curStateSti2;
+      begin
+         /* mem [ mem [ PC + SEXT(PCoffset9) ] ] = R[SR] */
+         /* This state: MAR = MDR */
+         enaMDR = 1'b1;
+         ldMAR = 1'b1;
       end
    endtask
 
@@ -294,6 +319,13 @@ module controller (
       end
    endtask
 
+   task curStateLoadMDR;
+      begin
+         ldMDR = 1'b1;
+         selMDR = 1'b1;
+      end
+   endtask
+
 
    /***** Next State *****/
    /* State transition */
@@ -324,6 +356,9 @@ module controller (
         STATE_LD2     : nextStateLd2(nextState);
         STATE_ST0     : nextStateSt0(nextState);
         STATE_STR0    : nextStateStr0(nextState);
+        STATE_STI0    : nextStateSti0(nextState);
+        STATE_STI1    : nextStateSti1(nextState);
+        STATE_STI2    : nextStateSti2(nextState);
         STATE_ALL_ST0 : nextStateAllSt0(nextState);
         STATE_ALL_ST1 : nextStateAllSt1(nextState);
         STATE_JMP0    : nextStateJmp0(nextState);
@@ -365,6 +400,7 @@ module controller (
            OPCODE_LD  : outNextState = STATE_LD0;
            OPCODE_ST  : outNextState = STATE_ST0;
            OPCODE_STR : outNextState = STATE_STR0;
+           OPCODE_STI : outNextState = STATE_STI0;
            OPCODE_JMP : outNextState = STATE_JMP0;
            default    : outNextState = STATE_FETCH0;
          endcase
@@ -453,6 +489,27 @@ module controller (
    endtask
 
    task nextStateStr0;
+      output state_t outNextState;
+      begin
+         outNextState = STATE_ALL_ST0;
+      end
+   endtask
+
+   task nextStateSti0;
+      output state_t outNextState;
+      begin
+         outNextState = STATE_STI1;
+      end
+   endtask
+
+   task nextStateSti1;
+      output state_t outNextState;
+      begin
+         outNextState = STATE_STI2;
+      end
+   endtask
+
+   task nextStateSti2;
       output state_t outNextState;
       begin
          outNextState = STATE_ALL_ST0;
