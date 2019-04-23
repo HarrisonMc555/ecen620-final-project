@@ -43,10 +43,10 @@ class Checker;
       forever begin
          mbx_tr.get(tr);
          mbx_vr.get(vr);
-         $display("%0t Checker Transaction:", $time);
-         $display("\tinstruction: %b", tr.instruction);
-         $display("\tis_reset: %b", tr.is_reset);
-         $display("\treset_clock_cycle: %0d", tr.reset_clock_cycle);
+         // $display("%0t Checker Transaction:", $time);
+         // $display("\tinstruction: %b", tr.instruction);
+         // $display("\tis_reset: %b", tr.is_reset);
+         // $display("\treset_clock_cycle: %0d", tr.reset_clock_cycle);
          res = gold_dut.run(tr);
          vr.gold_result = res;
          vr.to_dut = tr;
