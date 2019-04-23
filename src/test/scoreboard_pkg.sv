@@ -19,7 +19,8 @@ package scoreboard_pkg;
 
    // Parameterized class to do compare
 class comparator #(type T=bit[3:0]);
-   static int num_errors = 0;
+   int num_errors = 0;
+   // static int num_errors = 0;
    function void compare(input Verification vr, input string name, input T actual, input T expected);
       string  instruction;
       if (vr != null && vr.to_dut != null) begin
@@ -69,6 +70,19 @@ class Scoreboard;
    function void compare_expected(input Verification vr);
       int     i;
       num_compared++;
+      if (num_compared % 100 == 0) begin
+         $display("At time %0t", $time);
+         $display("\tnum_compared = %0d", num_compared);
+         $display("\t compare_clocks errors = %0d", compare_clocks.num_errors);
+         $display("\t compare_writes errors = %0d", compare_writes.num_errors);
+         $display("\t compare_regs errors = %0d", compare_regs.num_errors);
+         $display("\t compare_address errors = %0d", compare_address.num_errors);
+         $display("\t compare_data errors = %0d", compare_data.num_errors);
+         $display("\t compare_PC errors = %0d", compare_PC.num_errors);
+         $display("\t compare_Nf errors = %0d", compare_Nf.num_errors);
+         $display("\t compare_Zf errors = %0d", compare_Zf.num_errors);
+         $display("\t compare_Pf errors = %0d", compare_Pf.num_errors);
+      end
       if (~vr.to_dut.is_reset) begin
          compare_clocks.compare(vr, "cycles to complete", vr.dut_result.cycles_taken, vr.gold_result.cycles_taken);
          compare_writes.compare(vr, "times written", vr.dut_result.write_count, vr.gold_result.write_count);

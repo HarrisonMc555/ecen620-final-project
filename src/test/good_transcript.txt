@@ -1,0 +1,440 @@
+Reading /auto/ee2/questasim/10.1c/tcl/vsim/pref.tcl 
+
+# 10.1c
+
+# vsim +TESTNAME=TestWithReset -assertdebug -do {run 2000000; exit} -c -voptargs=+acc=lprn -novopt top 
+# //  Questa Sim-64
+# //  Version 10.1c linux_x86_64 Jul 27 2012
+# //
+# //  Copyright 1991-2012 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.opcodes
+# Loading work.verification_pkg
+# Loading work.scoreboard_pkg
+# Loading work.processor_sv_unit
+# Loading work.top
+# Loading work.dut_if
+# Loading work.bindfiles
+# Loading work.test
+# Loading work.dut
+# Loading work.dut_asserts
+# run 2000000 
+# Registered Test TestRandomGood
+# Registered Test TestRandomAll
+# Registered Test TestWithReset
+# processor_sv_unit.TestRegistry.get_test found +TESTNAME=TestWithReset
+# processor_sv_unit.TestWithReset.run_test
+# At time 52700
+# 	num_compared = 100
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 103100
+# 	num_compared = 200
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 154600
+# 	num_compared = 300
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 206700
+# 	num_compared = 400
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 261400
+# 	num_compared = 500
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 316400
+# 	num_compared = 600
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 372000
+# 	num_compared = 700
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 424000
+# 	num_compared = 800
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 477300
+# 	num_compared = 900
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 531100
+# 	num_compared = 1000
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 583800
+# 	num_compared = 1100
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 636300
+# 	num_compared = 1200
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 689700
+# 	num_compared = 1300
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 742700
+# 	num_compared = 1400
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 795000
+# 	num_compared = 1500
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 848300
+# 	num_compared = 1600
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 900100
+# 	num_compared = 1700
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 955200
+# 	num_compared = 1800
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1009900
+# 	num_compared = 1900
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1064000
+# 	num_compared = 2000
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1118100
+# 	num_compared = 2100
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1168600
+# 	num_compared = 2200
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1221900
+# 	num_compared = 2300
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1274200
+# 	num_compared = 2400
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1325500
+# 	num_compared = 2500
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1378300
+# 	num_compared = 2600
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1429500
+# 	num_compared = 2700
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1480200
+# 	num_compared = 2800
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1532500
+# 	num_compared = 2900
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1586000
+# 	num_compared = 3000
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1638600
+# 	num_compared = 3100
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1691500
+# 	num_compared = 3200
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1744400
+# 	num_compared = 3300
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1798700
+# 	num_compared = 3400
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1852300
+# 	num_compared = 3500
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1903600
+# 	num_compared = 3600
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# At time 1956000
+# 	num_compared = 3700
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+#  exit 
