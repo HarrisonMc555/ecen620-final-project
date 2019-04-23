@@ -25,7 +25,7 @@ class GoldenLC3;
    logic [15:0]      regfile [7:0] = {0,0,0,0,0,0,0,0};
    logic             Nf = 0;
    logic             Pf = 0;
-   logic             Zf = 0;
+   logic             Zf = 1;
 
    LC3_result res;
 
@@ -185,7 +185,7 @@ class GoldenLC3;
       if(tr.is_reset && tr.reset_clock_cycle <= res.cycles_taken) begin
          PC = 0;
          Pf = 0;
-         Zf = 0;
+         Zf = 1;
          Nf = 0;
          for(i=0; i<8; i++) begin
             regfile[i] = 0;
