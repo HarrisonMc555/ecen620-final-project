@@ -30,9 +30,9 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
 
     function void set_npz(input logic[15:0] alu_out, output logic Nf, Pf, Zf);
         $display("%0h", alu_out);
-        Nf <= alu_out[15];
-        Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
-        Zf <= (alu_out === 16'h0000);
+        Nf = alu_out[15];
+        Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+        Zf = (alu_out === 16'h0000);
     endfunction;
 
     logic [15:0] instruction;
