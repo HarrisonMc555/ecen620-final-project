@@ -2,6 +2,19 @@ import verification_pkg::Transaction;
 import verification_pkg::Verification;
 import scoreboard_pkg::Scoreboard;
 
+virtual class Checker_cbs;
+   virtual task post_tx(ref Transaction tr);
+      // By default do nothing
+   endtask
+
+   virtual function logic is_done();
+      return 1;
+   endfunction
+
+   pure virtual function real get_coverage;
+   pure virtual function string coverage_name;
+endclass
+
 class Checker;
    //finishes populates the verification packet with data from the golden model
    Verification vr;
@@ -11,6 +24,7 @@ class Checker;
    mailbox #(Verification) mbx_vr;
    GoldenLC3 gold_dut;
    Scoreboard scb;
+   Checker_cbs cbs[$];
 
    function new(
                 input mailbox #(Transaction) mbx_tr,
@@ -32,6 +46,7 @@ class Checker;
          res = gold_dut.run(tr);
          vr.gold_result = res;
          vr.to_dut = tr;
+         foreach (cbs[i]) cbs[i].post_tx(vr.to_dut);
          scb.compare_expected(vr);
       end
    endtask
