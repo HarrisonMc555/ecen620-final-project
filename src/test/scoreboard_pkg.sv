@@ -23,7 +23,7 @@ class comparator #(type T=bit[3:0]);
    function void compare(input Verification vr, input string name, input T actual, input T expected);
       string  instruction;
       if (vr != null && vr.to_dut != null) begin
-         instruction = $sformatf("instruction = %16b:", vr.to_dut.instruction);
+         instruction = $sformatf("%16b", vr.to_dut.instruction);
       end else begin
          instruction = "????????????????";
       end
