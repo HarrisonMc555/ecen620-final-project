@@ -146,7 +146,7 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
     assign pcoffset11  = ir[10: 0];
     assign trapvect8   = ir[ 7: 0];
 
-    enum integer {FETCH0=0, FETCH1=1, FETCH2=2, DECODE=3, EXECUTE=4
+    enum integer {FETCH0=0, FETCH1=1, FETCH2=2, DECODE=3, EXECUTE=4,
                     ADD0,
                     AND0,
                     NOT0,
