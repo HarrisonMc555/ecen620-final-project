@@ -63,8 +63,10 @@ class Monitor;
             vr = new();
             vr.to_dut = tr;
             vr.dut_result = last_result;
+            $display("%0t Monitor (before)", $time);
             mbx_out.put(vr);
             transactionDone.put(1);
+            $display("%0t Monitor (after)", $time); 
          end
       end
    endtask;

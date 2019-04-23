@@ -40,9 +40,9 @@ class Driver;
 
    task transmit(input Transaction trans);
       bit bogus;
-      $display("Transaction:");
-      $display("\tinstruction: %0b", trans.instruction);
-      $display("\tis_reset: %0b", trans.is_reset);
+      $display("%0t Driver Transaction:", $time);
+      $display("\tinstruction: %b", trans.instruction);
+      $display("\tis_reset: %b", trans.is_reset);
       $display("\treset_clock_cycle: %0d", trans.reset_clock_cycle);
       drv2chk.put(trans);
       if (trans.is_reset) begin
@@ -53,6 +53,7 @@ class Driver;
             dif.reset = 1;
             @(posedge dif.clk);
             dif.reset = 0;
+            transactionDone.get(bogus);
             return;
          end
          $display("\tone more cycle");
@@ -64,6 +65,7 @@ class Driver;
             dif.reset = 1;
             @(posedge dif.clk);
             dif.reset = 0;
+            transactionDone.get(bogus);
             return;
          end
          $display("\tone more cycle");
@@ -81,6 +83,7 @@ class Driver;
          dif.reset = 1;
          @(posedge dif.clk);
          dif.reset = 0;
+         transactionDone.get(bogus);
 
       end else begin
          @(posedge dif.clk); // Cycle where IR is loaded into MAR

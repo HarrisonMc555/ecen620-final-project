@@ -192,6 +192,7 @@ class GoldenLC3;
          for(i=0; i<8; i++) begin
             regfile[i] = 0;
          end
+         res.cycles_taken = tr.reset_clock_cycle;
       end
       res.PC = PC;
       set_regs(res.regs);

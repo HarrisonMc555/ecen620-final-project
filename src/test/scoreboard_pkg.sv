@@ -69,16 +69,18 @@ class Scoreboard;
    function void compare_expected(input Verification vr);
       int     i;
       num_compared++;
-      compare_clocks.compare(vr, "cycles to complete", vr.dut_result.cycles_taken, vr.gold_result.cycles_taken);
-      compare_writes.compare(vr, "times writen", vr.dut_result.write_count, vr.gold_result.write_count);
+      if (~vr.to_dut.is_reset) begin
+         compare_clocks.compare(vr, "cycles to complete", vr.dut_result.cycles_taken, vr.gold_result.cycles_taken);
+         compare_writes.compare(vr, "times written", vr.dut_result.write_count, vr.gold_result.write_count);
+         for(i = 0; (i < vr.dut_result.write_count) && (i < vr.gold_result.write_count); i++) begin
+            compare_address.compare(vr, "write address", vr.dut_result.write_address[i], vr.gold_result.write_address[i]);
+            compare_data.compare(vr, "write data", vr.dut_result.write_data[i], vr.gold_result.write_data[i]);
+         end
+      end
       compare_PC.compare(vr, "PC value", vr.dut_result.PC, vr.gold_result.PC);
       compare_Nf.compare(vr, "N flag", vr.dut_result.N_flag, vr.gold_result.N_flag);
       compare_Zf.compare(vr, "Z flag", vr.dut_result.Z_flag, vr.gold_result.Z_flag);
       compare_Pf.compare(vr, "P flag", vr.dut_result.P_flag, vr.gold_result.P_flag);
-      for(i = 0; (i < vr.dut_result.write_count) && (i < vr.gold_result.write_count); i++) begin
-         compare_address.compare(vr, "write address", vr.dut_result.write_address[i], vr.gold_result.write_address[i]);
-         compare_data.compare(vr, "write data", vr.dut_result.write_data[i], vr.gold_result.write_data[i]);
-      end
       for(i = 0; i < 8; i++) begin
          compare_regs.compare(vr, $sformatf("register %0d", i), vr.dut_result.regs[i], vr.gold_result.regs[i]);
       end

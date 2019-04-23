@@ -13,7 +13,6 @@ class Generator;
    endfunction
 
    task run();
-      Transaction trans;
       forever begin
          `SV_RAND_CHECK(blueprint.randomize());
          gen2drv.put(blueprint.copy());

@@ -17,6 +17,9 @@ class Transaction;
 
    virtual function Transaction copy();
       copy = new(instruction);
+      copy.is_reset = is_reset;
+      copy.reset_clock_cycle = reset_clock_cycle;
+      copy.mem_data = mem_data;
    endfunction
 
    constraint valid_instruction {
@@ -71,8 +74,8 @@ class Transaction;
    }
 
    constraint valid_clock_cycle {
-      // reset_clock_cycle inside {[0:10]};
-      reset_clock_cycle < 10;
+      reset_clock_cycle inside {[1:10]};
+      // reset_clock_cycle < 10;
    }
 
    // constraint no_reset {
