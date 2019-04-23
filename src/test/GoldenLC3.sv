@@ -38,7 +38,7 @@ class GoldenLC3;
 
    function void set_npz(logic[15:0] alu_out);
       Nf = alu_out[15];
-      Pf = ~(alu_out[15]);
+      Pf = ~(alu_out[15]) && alu_out !== 16'h000;
       Zf = (alu_out === 16'h0000);
    endfunction;
 
@@ -117,6 +117,7 @@ class GoldenLC3;
          end
       end
       else if(opcode === JMP) begin //also RET
+         res.cycles_taken = 5;
          PC = regfile[dr];
          res.cycles_taken = 5;
       end
@@ -132,7 +133,7 @@ class GoldenLC3;
          end
       end
       else if(opcode === LD) begin
-         res.cycles_taken = 8;
+         res.cycles_taken = 7;
          set_npz(regfile[dr]);
          regfile[dr] = tr.mem_data[0];
       end
@@ -147,11 +148,12 @@ class GoldenLC3;
          end
       end
       else if(opcode === LDR) begin
-         res.cycles_taken = 8;
+         res.cycles_taken = 7;
          set_npz(regfile[dr]);
          regfile[dr] = tr.mem_data[0];
       end
       else if(opcode === LEA) begin
+         res.cycles_taken = 5;
          set_npz(regfile[dr]);
          regfile[dr] = PC + pcoffset9;
       end
