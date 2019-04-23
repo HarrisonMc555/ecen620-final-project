@@ -295,7 +295,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === ST1) begin
             state = ST2;
-            dataToMemory = regs[sr1];
+            dataToMemory = regs[dr];
             writeEnable = 1;
         end
         else if(state === STI1) begin
