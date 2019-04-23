@@ -338,6 +338,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         else if(state === ST1) begin
             state <= ST2;
             dataToMemory <= regs[sr1];
+            writeEnable <= 1;
         end
         else if(state === STI1) begin
             state <= STI2;
@@ -359,7 +360,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === ST2) begin
             state <= FETCH0;
-            //done already?
+            writeEnable <= 0;
         end
         else if(state === STI2) begin
             state <= ST1;
