@@ -129,7 +129,6 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
     logic [ 7:0] trapvect8;
     logic [15:0] ir;
 
-    assign res         = new();
     assign ir          = tr.instruction;
     assign opcode      = ir[15:12];
     assign dr          = ir[11: 9];
