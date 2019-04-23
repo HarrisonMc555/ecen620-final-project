@@ -6,8 +6,6 @@ import verification_pkg::Verification;
 
 class Environment;
 
-   const int RUN_FOR_N_TRANS = 10000; //unused
-
    virtual dut_if dif;
    Generator gen;
    Driver drv;

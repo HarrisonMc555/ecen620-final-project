@@ -40,7 +40,7 @@ class GoldenLC3;
    function void set_npz(logic[15:0] alu_out);
       Nf = alu_out[15];
       Pf = ~(alu_out[15]) && alu_out !== 16'h000;
-      Zf = alu_out === 16'h0000;
+      Zf = (alu_out === 16'h0000);
    endfunction;
 
    function LC3_result run(Transaction tr);
@@ -129,8 +129,8 @@ class GoldenLC3;
          end
          else begin
             lastPC = PC;
-            regfile[7] = PC;
-            PC = lastPC;
+            PC = regfile[base_r];
+            regfile[7] = lastPC;
          end
       end
       else if(opcode === LD) begin
