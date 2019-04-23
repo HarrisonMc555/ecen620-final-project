@@ -1,0 +1,128 @@
+Reading /auto/ee2/questasim/10.1c/tcl/vsim/pref.tcl 
+
+# 10.1c
+
+# vsim +TESTNAME=TestWithReset -assertdebug -do {run 200000; exit} -c -voptargs=+acc=lprn -novopt top 
+# //  Questa Sim-64
+# //  Version 10.1c linux_x86_64 Jul 27 2012
+# //
+# //  Copyright 1991-2012 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.opcodes
+# Loading work.verification_pkg
+# Loading work.scoreboard_pkg
+# Loading work.processor_sv_unit
+# Loading work.top
+# Loading work.dut_if
+# Loading work.bindfiles
+# Loading work.test
+# Loading work.dut
+# Loading work.dut_asserts
+# run 200000 
+# Registered Test TestRandomGood
+# Registered Test TestRandomAll
+# Registered Test TestWithReset
+# processor_sv_unit.TestRegistry.get_test found +TESTNAME=TestWithReset
+# processor_sv_unit.TestWithReset.run_test
+# At time 52700
+# 	num_compared = 100
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 0
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# 101700: ERROR instruction 0001011110111101,               N flag: expected=0x1 != actual=0x0 (1 != 0)
+# ** Error: Assertion error.
+#    Time: 101750 ns Started: 101750 ns  Scope: top.dut.p1.ERR_AT_LEAST_ONE_NZP_FLAG_SHOULD_BE_HIGH_ALWAYS File: dut_asserts.sv Line: 53 Expr: Nf|Pf|Zf
+# ** Error: Assertion error.
+#    Time: 101750 ns Started: 101750 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 101850 ns Started: 101850 ns  Scope: top.dut.p1.ERR_AT_LEAST_ONE_NZP_FLAG_SHOULD_BE_HIGH_ALWAYS File: dut_asserts.sv Line: 53 Expr: Nf|Pf|Zf
+# ** Error: Assertion error.
+#    Time: 101850 ns Started: 101850 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 101950 ns Started: 101950 ns  Scope: top.dut.p1.ERR_AT_LEAST_ONE_NZP_FLAG_SHOULD_BE_HIGH_ALWAYS File: dut_asserts.sv Line: 53 Expr: Nf|Pf|Zf
+# ** Error: Assertion error.
+#    Time: 101950 ns Started: 101950 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# At time 103100
+# 	num_compared = 200
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 1
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
+# 113500: ERROR instruction 0001101100111101,               N flag: expected=0x1 != actual=0x0 (1 != 0)
+# ** Error: Assertion error.
+#    Time: 113550 ns Started: 113550 ns  Scope: top.dut.p1.ERR_AT_LEAST_ONE_NZP_FLAG_SHOULD_BE_HIGH_ALWAYS File: dut_asserts.sv Line: 53 Expr: Nf|Pf|Zf
+# ** Error: Assertion error.
+#    Time: 113550 ns Started: 113550 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 113650 ns Started: 113650 ns  Scope: top.dut.p1.ERR_AT_LEAST_ONE_NZP_FLAG_SHOULD_BE_HIGH_ALWAYS File: dut_asserts.sv Line: 53 Expr: Nf|Pf|Zf
+# ** Error: Assertion error.
+#    Time: 113650 ns Started: 113650 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 113750 ns Started: 113750 ns  Scope: top.dut.p1.ERR_AT_LEAST_ONE_NZP_FLAG_SHOULD_BE_HIGH_ALWAYS File: dut_asserts.sv Line: 53 Expr: Nf|Pf|Zf
+# ** Error: Assertion error.
+#    Time: 113750 ns Started: 113750 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 113850 ns Started: 113850 ns  Scope: top.dut.p1.ERR_AT_LEAST_ONE_NZP_FLAG_SHOULD_BE_HIGH_ALWAYS File: dut_asserts.sv Line: 53 Expr: Nf|Pf|Zf
+# ** Error: Assertion error.
+#    Time: 113850 ns Started: 113850 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 113950 ns Started: 113950 ns  Scope: top.dut.p1.ERR_AT_LEAST_ONE_NZP_FLAG_SHOULD_BE_HIGH_ALWAYS File: dut_asserts.sv Line: 53 Expr: Nf|Pf|Zf
+# ** Error: Assertion error.
+#    Time: 113950 ns Started: 113950 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# 135200: ERROR instruction 0001010001101001,               N flag: expected=0x0 != actual=0x1 (0 != 1)
+# ** Error: Assertion error.
+#    Time: 135250 ns Started: 135250 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 135350 ns Started: 135350 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 135450 ns Started: 135450 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# 138200: ERROR instruction 0001000110100101,               N flag: expected=0x0 != actual=0x1 (0 != 1)
+# ** Error: Assertion error.
+#    Time: 138250 ns Started: 138250 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 138350 ns Started: 138350 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 138450 ns Started: 138450 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 138550 ns Started: 138550 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 138650 ns Started: 138650 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 138750 ns Started: 138750 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# 154200: ERROR instruction 0001011010100010,               N flag: expected=0x0 != actual=0x1 (0 != 1)
+# ** Error: Assertion error.
+#    Time: 154250 ns Started: 154250 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 154350 ns Started: 154350 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 154450 ns Started: 154450 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# ** Error: Assertion error.
+#    Time: 154550 ns Started: 154550 ns  Scope: top.dut.p1.ERR_ONLY_ONE_NZP_FLAG_SHOULD_BE_HIGH_AT_ONCE File: dut_asserts.sv Line: 50 Expr: Nf+Pf+Zf==1
+# At time 154600
+# 	num_compared = 300
+# 	 compare_clocks errors = 0
+# 	 compare_writes errors = 0
+# 	 compare_regs errors = 0
+# 	 compare_address errors = 0
+# 	 compare_data errors = 0
+# 	 compare_PC errors = 0
+# 	 compare_Nf errors = 5
+# 	 compare_Zf errors = 0
+# 	 compare_Pf errors = 0
