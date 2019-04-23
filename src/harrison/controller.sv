@@ -87,6 +87,8 @@ module controller (
         STATE_ST0     : curStateSt0;
         STATE_STR0    : curStateStr0;
         STATE_STI0    : curStateSti0;
+        STATE_STI1    : curStateSti1;
+        STATE_STI2    : curStateSti2;
         STATE_ALL_ST0 : curStateAllSt0;
         STATE_ALL_ST1 : curStateAllSt1;
         STATE_JMP0    : curStateJmp0;
@@ -300,6 +302,7 @@ module controller (
 
    task curStateUnknown;
       begin
+         $display("ERROR: unknown state.");
       end
    endtask
 
