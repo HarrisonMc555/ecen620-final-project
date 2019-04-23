@@ -306,6 +306,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === TRAP1) begin
             state = TRAP2;
+            regs[7] = PC;
             PC = dataFromMemory;
         end
         //////////////////////////////////////////////////////////////
