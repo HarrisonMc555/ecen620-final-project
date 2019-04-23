@@ -47,6 +47,9 @@ class Scoreboard;
    comparator #(bit [15:0]) compare_address;
    comparator #(bit [15:0]) compare_data;
    comparator #(bit [15:0]) compare_PC;
+   comparator #(bit) compare_Nf;
+   comparator #(bit) compare_Zf;
+   comparator #(bit) compare_Pf;
 
 
    // Instantiate the 3 comparators.
@@ -57,6 +60,9 @@ class Scoreboard;
       compare_address = new();
       compare_data = new();
       compare_PC = new();
+      compare_Nf = new();
+      compare_Zf = new();
+      compare_Pf = new();
    endfunction // new
 
    // Compare the expected values of the version, ihl, total length, and the header checksum
@@ -64,8 +70,11 @@ class Scoreboard;
       int     i;
       num_compared++;
       compare_clocks.compare(vr, "cycles to complete", vr.dut_result.cycles_taken, vr.gold_result.cycles_taken);
-      compare_PC.compare(vr, "PC value", vr.dut_result.PC, vr.gold_result.PC);
       compare_writes.compare(vr, "times writen", vr.dut_result.write_count, vr.gold_result.write_count);
+      compare_PC.compare(vr, "PC value", vr.dut_result.PC, vr.gold_result.PC);
+      compare_Nf.compare(vr, "N flag", vr.dut_result.N_flag, vr.gold_result.N_flag);
+      compare_Zf.compare(vr, "Z flag", vr.dut_result.Z_flag, vr.gold_result.Z_flag);
+      compare_Pf.compare(vr, "P flag", vr.dut_result.P_flag, vr.gold_result.P_flag);
       for(i = 0; (i < vr.dut_result.write_count) && (i < vr.gold_result.write_count); i++) begin
          compare_address.compare(vr, "write address", vr.dut_result.write_address[i], vr.gold_result.write_address[i]);
          compare_data.compare(vr, "write data", vr.dut_result.write_data[i], vr.gold_result.write_data[i]);
