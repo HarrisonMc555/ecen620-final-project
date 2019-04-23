@@ -4,11 +4,13 @@ package verification_pkg;
 
 class Transaction;
 
-   rand logic[15:0] instruction;
+   rand logic [3:0] opcode;
+   rand logic [11:0] other_bits;
+   rand logic [15:0] instruction;
    rand logic is_reset;
    rand int reset_clock_cycle;
    logic[15:0] mem_data[$];
-   
+
    function new(logic[15:0] instruction=16'h00);
       this.instruction = instruction;
    endfunction
@@ -18,29 +20,54 @@ class Transaction;
    endfunction
 
    constraint valid_instruction {
-      instruction[15:12] inside 
-     {
-      ADD,
-      AND,
-      NOT,
-      BR,
-      JMP,
-      JSR,
-      LD,
-      LDI,
-      LDR,
-      LEA,
-      ST,
-      STI,
-      STR,
-      TRAP
-      };
-      instruction[15:12] == NOT -> instruction[5:0] == 6'b111111;
-      instruction[15:12] == JMP -> instruction[11:9] == 0;
-      instruction[15:12] == JMP -> instruction[ 5:0] == 0;
-      instruction[15:12] == JSR && instruction[11] == 0 -> instruction[11:9] == 0;
-      instruction[15:12] == JSR && instruction[11] == 0 -> instruction[ 5:0] == 0;
-      instruction[15:12] == TRAP -> instruction[11:8] == 0;
+      opcode inside {
+                     ADD,
+                     AND,
+                     NOT,
+                     BR,
+                     JMP,
+                     JSR,
+                     LD,
+                     LDI,
+                     LDR,
+                     LEA,
+                     ST,
+                     STI,
+                     STR,
+                     TRAP
+                     };
+   }
+
+   constraint valid_not_instruction {
+      (opcode == NOT) -> (other_bits[5:0] == 6'b111111);
+   }
+
+   constraint valid_jmp_instruction_high_bits {
+      (opcode == JMP) -> (other_bits[11:9] == 0);
+   }
+
+   constraint valid_jmp_instruction_low_bits {
+      (opcode == JMP) -> (other_bits[ 5:0] == 0);
+   }
+
+   constraint valid_jsr_instruction_high_bits {
+      opcode == JSR && other_bits[11] == 0 -> other_bits[11:9] == 0;
+   }
+
+   constraint valid_jsr_instruction_low_bits {
+      opcode == JSR && other_bits[11] == 0 -> other_bits[ 5:0] == 0;
+   }
+
+   constraint valid_trap_instruction {
+      (opcode == TRAP) -> (other_bits[11:8] == 4'b0000);
+   }
+
+   constraint order {
+      solve opcode before other_bits;
+   }
+
+   constraint form_instruction {
+      instruction == {opcode, other_bits};
    }
 
    constraint valid_clock_cycle {
