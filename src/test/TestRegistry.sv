@@ -89,7 +89,10 @@ class AllSourcesCb extends Checker_cbs;
    const string NAME = "All sources";
 
    covergroup cg;
+      option.per_instance = 1;
       coverpoint opcode {
+         option.weight = 0;
+         option.goal = 0;
          bins valid_opcodes[] = {
                                  ADD,
                                  AND,
@@ -100,7 +103,10 @@ class AllSourcesCb extends Checker_cbs;
                                  };
          
       }
-      coverpoint src;
+      coverpoint src {
+         option.weight = 0;
+         option.goal = 0;
+      }
       cross opcode, src;
    endgroup
 
@@ -143,14 +149,20 @@ class AllSecondSourcesCb extends Checker_cbs;
    const string NAME = "All second sources";
 
    covergroup cg;
+      option.per_instance = 1;
       coverpoint opcode {
+         option.weight = 0;
+         option.goal = 0;
          bins valid_opcodes[] = {
                                  ADD,
                                  AND
                                  };
          
       }
-      coverpoint src;
+      coverpoint src {
+         option.weight = 0;
+         option.goal = 0;
+      }
       cross opcode, src;
    endgroup
 
@@ -189,7 +201,10 @@ class AllBaseRegistersCb extends Checker_cbs;
    const string NAME = "All second sources";
 
    covergroup cg;
+      option.per_instance = 1;
       coverpoint opcode {
+         option.weight = 0;
+         option.goal = 0;
          bins valid_opcodes[] = {
                                  JMP,
                                  JSR,
@@ -198,7 +213,10 @@ class AllBaseRegistersCb extends Checker_cbs;
                                  };
          
       }
-      coverpoint src;
+      coverpoint src {
+         option.weight = 0;
+         option.goal = 0;
+      }
       cross opcode, src;
    endgroup
 
@@ -235,7 +253,10 @@ class AllDestinationsCb extends Checker_cbs;
    const string NAME = "All destinations";
 
    covergroup cg;
+      option.per_instance = 1;
       coverpoint opcode {
+         option.weight = 0;
+         option.goal = 0;
          bins valid_opcodes[] = {
                                  ADD,
                                  AND,
@@ -247,7 +268,10 @@ class AllDestinationsCb extends Checker_cbs;
                                  };
          
       }
-      coverpoint dst;
+      coverpoint dst {
+         option.weight = 0;
+         option.goal = 0;
+      }
       cross opcode, dst;
    endgroup
 
@@ -259,6 +283,86 @@ class AllDestinationsCb extends Checker_cbs;
    task post_tx(ref Transaction tr);
       opcode = tr.instruction[15:12];
       dst = tr.instruction[11:9];
+      cg.sample();
+   endtask
+
+   virtual function logic is_done();
+      return cg.get_coverage() == 100.0;
+   endfunction
+
+   virtual function real get_coverage;
+      return cg.get_coverage();
+   endfunction
+
+   virtual function string coverage_name();
+      return NAME;
+   endfunction
+endclass
+
+
+class AllInstructionsPrecededAndFollowed extends Checker_cbs;
+   logic [3:0] first_opcode, second_opcode;
+   logic       is_first_time;
+   const string NAME = "All instructions have preceded and followed all other instructions";
+
+   covergroup cg;
+      option.per_instance = 1;
+      coverpoint first_opcode {
+         option.weight = 0;
+         option.goal = 0;
+         bins valid_opcodes[] = {
+                                 ADD,
+                                 AND,
+                                 NOT,
+                                 BR,
+                                 JMP,
+                                 JSR,
+                                 LD,
+                                 LDI,
+                                 LDR,
+                                 LEA,
+                                 ST,
+                                 STI,
+                                 STR,
+                                 TRAP
+                                 };
+      }
+      coverpoint second_opcode  {
+         option.weight = 0;
+         option.goal = 0;
+         bins valid_opcodes[] = {
+                                 ADD,
+                                 AND,
+                                 NOT,
+                                 BR,
+                                 JMP,
+                                 JSR,
+                                 LD,
+                                 LDI,
+                                 LDR,
+                                 LEA,
+                                 ST,
+                                 STI,
+                                 STR,
+                                 TRAP
+                                 };
+      }
+      cross first_opcode, second_opcode;
+   endgroup
+
+   function new;
+      cg = new();
+      is_first_time = 1;
+      cg.set_inst_name(NAME);
+   endfunction
+
+   task post_tx(ref Transaction tr);
+      if (is_first_time) begin
+         second_opcode = tr.instruction[15:12];
+         is_first_time = 0;
+      end
+      first_opcode = second_opcode;
+      second_opcode = tr.instruction[15:12];
       cg.sample();
    endtask
 
@@ -300,11 +404,13 @@ class TestRandomGood extends TestBase;
       AllSecondSourcesCb cb3 = new();
       AllBaseRegistersCb cb4 = new();
       AllDestinationsCb cb5 = new();
+      AllInstructionsPrecededAndFollowed cb6 = new();
       env.chk.cbs.push_back(cb1);
       env.chk.cbs.push_back(cb2);
       env.chk.cbs.push_back(cb3);
       env.chk.cbs.push_back(cb4);
       env.chk.cbs.push_back(cb5);
+      env.chk.cbs.push_back(cb6);
    endtask
 endclass
 
