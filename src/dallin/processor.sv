@@ -107,7 +107,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
 
     function void set_npz(logic[15:0] alu_out);
         Nf <= alu_out[15];
-        Pf <= ~(alu_out[15]);
+        Pf <= ~(alu_out[15]) && (alu_out != 0);
         Zf <= (alu_out === 16'h0000);
     endfunction;
 
