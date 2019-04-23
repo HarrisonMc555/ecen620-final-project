@@ -337,7 +337,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === ST1) begin
             state <= ST2;
-            dataFromMemory <= regs[sr1];
+            dataToMemory <= regs[sr1];
         end
         else if(state === STI1) begin
             state <= STI2;
@@ -345,7 +345,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === TRAP1) begin
             state <= TRAP2;
-            PC <= dataToMemory;
+            PC <= dataFromMemory;
         end
         //////////////////////////////////////////////////////////////
         //THIRD EXECUTE STATE
