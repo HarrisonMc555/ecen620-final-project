@@ -21,6 +21,7 @@ package lc3;
                               STATE_LDR0,
                               STATE_ALL_LD0,
                               STATE_ALL_LD1,
+                              STATE_LEA0,
                               STATE_ST0,
                               STATE_STI0,
                               STATE_STI1,
