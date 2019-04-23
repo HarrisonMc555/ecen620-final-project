@@ -163,7 +163,7 @@ class GoldenLC3;
          res.write_count = 1;
       end
       else if(opcode === STI) begin
-         res.cycles_taken = 10;
+         res.cycles_taken = 9;
          res.write_data.push_back(regfile[dr]);
          res.write_count = 1;
          res.write_address.push_back(tr.mem_data[0]);
