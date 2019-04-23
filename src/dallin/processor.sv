@@ -174,7 +174,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             instruction <= 0;
             dataToMemory <= 0;
             writeEnable <= 0;
-            regs = {0,0,0,0,0,0,0};
+            regs = {0,0,0,0,0,0,0,0};
         end
         else if(state === FETCH0) begin
             state <= FETCH1;
