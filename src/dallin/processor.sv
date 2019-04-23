@@ -275,14 +275,13 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         else if(state === JSR10) begin //aslo JSRR
             state = FETCH0;
             last_pc = PC;
-            PC = base_r;
+            PC = regs[base_r];
             regs[7] = last_pc;
         end
         else if(state === JSR11) begin //aslo JSRR
             state = FETCH0;
-            last_pc = PC;
+            regs[7] = PC;
             PC = PC + pcoffset11;
-            regs[7] = last_pc;
         end
         else if(state === LD1) begin
             state = LD2;
