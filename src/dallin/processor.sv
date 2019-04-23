@@ -213,6 +213,9 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
             Zf = (alu_out === 16'h0000);
             $display("%0h", alu_out); //set_npz((~regs[sr1]), Nf, Pf, Zf);
+            $display("%0h", Nf);
+            $display("%0h", Pf);
+            $display("%0h", Zf);
         end
         else if(state === BR0) begin
             if((br_n & Nf) || (br_p & Pf) || (br_z & Zf)) begin
