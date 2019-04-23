@@ -93,84 +93,84 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
     always @(posedge clk) begin
         if (reset == 1) begin
             state = FETCH0;
-            PC <= 0;
+            PC = 0;
             Nf = 0;
             Pf = 0;
             Zf = 1;
-            instruction <= 0;
-            dataToMemory <= 0;
-            writeEnable <= 0;
+            instruction = 0;
+            dataToMemory = 0;
+            writeEnable = 0;
             regs = {0,0,0,0,0,0,0,0};
         end
         else if(state === FETCH0) begin
-            state <= FETCH1;
-            address <= PC;
-            PC <= PC + 1;
+            state = FETCH1;
+            address = PC;
+            PC = PC + 1;
         end
         else if (state === FETCH1) begin
-            state <= FETCH2;
-            instruction <= dataFromMemory;
+            state = FETCH2;
+            instruction = dataFromMemory;
         end
         else if (state === FETCH2) begin
-            state <= DECODE;
+            state = DECODE;
         end
         else if (state === DECODE) begin
-            state <= EXECUTE;
+            state = EXECUTE;
             ////////////////////////////////////////////////////////////
             //Decode state;
             if(opcode === ADD) begin
-                state <= ADD0;
+                state = ADD0;
             end
             else if(opcode === AND) begin
-                state <= AND0;
+                state = AND0;
             end
             else if(opcode === NOT) begin
-                state <= NOT0;
+                state = NOT0;
             end
             else if(opcode === BR) begin
-                state <= BR0;
+                state = BR0;
             end
             else if(opcode === JMP) begin //also RET
-                state <= JMP0;
+                state = JMP0;
             end
             else if(opcode === JSR) begin //aslo JSRR
-                state <= JSR0;
+                state = JSR0;
             end
             else if(opcode === LD) begin
-                state <= LD0;
+                state = LD0;
             end
             else if(opcode === LDI) begin
-                state <= LDI0;
+                state = LDI0;
             end
             else if(opcode === LDR) begin
-                state <= LDR0;
+                state = LDR0;
             end
             else if(opcode === LEA) begin
-                state <= LEA0;
+                state = LEA0;
             end
             else if(opcode === ST) begin
-                state <= ST0;
+                state = ST0;
             end
             else if(opcode === STI) begin
-                state <= STI0;
+                state = STI0;
             end
             else if(opcode === STR) begin
-                state <= STR0;
+                state = STR0;
             end
             else if(opcode === TRAP) begin
-                state <= TRAP0;
+                state = TRAP0;
             end
             else begin //NOP
-                state <= FETCH0;
+                state = FETCH0;
             end
             ///////////////////////////////////////////////////////////
         end
         ///////////////////////////////////////////////////////////////
         //FIRST EXECUTE STAGE
         else if(state === ADD0) begin
-            state <= FETCH0;
+            state = FETCH0;
             if(imm_sw) begin
-                regs[dr] <= regs[sr1] + imm5;
+                regs[dr] = regs[sr1] + imm5;
                 alu_out = regs[sr1] + imm5;
                 Nf = alu_out[15];
                 Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
@@ -178,7 +178,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
                 $display("%0h", alu_out); //set_npz(regs[sr1] + imm5, Nf, Pf, Zf);
             end
             else begin
-                regs[dr] <= regs[sr1] + regs[sr2];
+                regs[dr] = regs[sr1] + regs[sr2];
                 alu_out = regs[sr1] + regs[sr2];
                 Nf = alu_out[15];
                 Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
@@ -187,9 +187,9 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             end
         end
         else if(state === AND0) begin
-            state <= FETCH0;
+            state = FETCH0;
             if(imm_sw) begin
-                regs[dr] <= regs[sr1] & imm5;
+                regs[dr] = regs[sr1] & imm5;
                 alu_out = regs[sr1] & imm5;
                 Nf = alu_out[15];
                 Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
@@ -197,7 +197,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
                 $display("%0h", alu_out); //set_npz(regs[sr1] + regs[sr2], Nf, Pf, Zf);
             end
             else begin
-                regs[dr] <= regs[sr1] & regs[sr2];
+                regs[dr] = regs[sr1] & regs[sr2];
                 alu_out = regs[sr1] & regs[sr2];
                 Nf = alu_out[15];
                 Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
@@ -206,7 +206,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             end
         end
         else if(state === NOT0) begin
-            state <= FETCH0;
+            state = FETCH0;
             regs[dr] = ~regs[sr1];
             alu_out = ~regs[sr1];
             Nf = alu_out[15];
@@ -216,39 +216,39 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === BR0) begin
             if((br_n & Nf) || (br_p & Pf) || (br_z & Zf)) begin
-                state <= BR1;
+                state = BR1;
             end
             else begin
-                state <= FETCH0;
+                state = FETCH0;
             end;
         end
         else if(state === JMP0) begin //also RET
-            state <= FETCH0;
-            PC <= PC + pcoffset9;
+            state = FETCH0;
+            PC = PC + pcoffset9;
         end
         else if(state === JSR0) begin //aslo JSRR
             if(jsr_sw) begin
-                state <= JSR11;
+                state = JSR11;
             end
             else begin
-                state <= JSR10;
+                state = JSR10;
             end
         end
         else if(state === LD0) begin
-            state <= LD1;
-            address <= PC + pcoffset9;
+            state = LD1;
+            address = PC + pcoffset9;
         end
         else if(state === LDI0) begin
-            state <= LDI1;
-            address <= PC + pcoffset9;
+            state = LDI1;
+            address = PC + pcoffset9;
         end
         else if(state === LDR0) begin
-            state <= LD1;
-            address <= regs[base_r] + pcoffset6;
+            state = LD1;
+            address = regs[base_r] + pcoffset6;
         end
         else if(state === LEA0) begin
-            state <= FETCH0;
-            regs[dr] <= PC + pcoffset9;
+            state = FETCH0;
+            regs[dr] = PC + pcoffset9;
             alu_out = PC + pcoffset9;
             Nf = alu_out[15];
             Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
@@ -256,40 +256,40 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             $display("%0h", alu_out); //set_npz(PC + pcoffset9, Nf, Pf, Zf);
         end
         else if(state === ST0) begin
-            state <= ST1;
-            address <= PC + pcoffset9;
+            state = ST1;
+            address = PC + pcoffset9;
         end
         else if(state === STI0) begin
-            state <= STI1;
-            address <= PC + pcoffset9;
+            state = STI1;
+            address = PC + pcoffset9;
         end
         else if(state === STR0) begin
-            state <= ST1;
-            address <= regs[base_r] + pcoffset6;
+            state = ST1;
+            address = regs[base_r] + pcoffset6;
         end
         else if(state === TRAP0) begin
-            state <= TRAP1;
-            address <= trapvect8;
+            state = TRAP1;
+            address = trapvect8;
         end
         ///////////////////////////////////////////////////////////////
         //SECOND EXECUTE STAGE
         else if(state === BR1) begin
-            state <= FETCH0;
+            state = FETCH0;
             PC = PC + pcoffset9;
         end
         else if(state === JSR10) begin //aslo JSRR
-            state <= FETCH0;
-            PC <= base_r;
-            regs[7] <= PC;
+            state = FETCH0;
+            PC = base_r;
+            regs[7] = PC;
         end
         else if(state === JSR11) begin //aslo JSRR
-            state <= FETCH0;
-            PC <= PC + pcoffset11;
-            regs[7] <= PC;
+            state = FETCH0;
+            PC = PC + pcoffset11;
+            regs[7] = PC;
         end
         else if(state === LD1) begin
-            state <= LD2;
-            regs[dr] <= dataFromMemory;
+            state = LD2;
+            regs[dr] = dataFromMemory;
             alu_out = dataFromMemory;
             Nf = alu_out[15];
             Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
@@ -297,46 +297,46 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             $display("%0h", alu_out); //set_npz(dataFromMemory, Nf, Pf, Zf);
         end
         else if(state === LDI1) begin
-            state <= LDI2;
-            address <= dataFromMemory;
+            state = LDI2;
+            address = dataFromMemory;
         end
         else if(state === ST1) begin
-            state <= ST2;
-            dataToMemory <= regs[sr1];
-            writeEnable <= 1;
+            state = ST2;
+            dataToMemory = regs[sr1];
+            writeEnable = 1;
         end
         else if(state === STI1) begin
-            state <= STI2;
-            address <= dataFromMemory;
+            state = STI2;
+            address = dataFromMemory;
         end
         else if(state === TRAP1) begin
-            state <= TRAP2;
-            PC <= dataFromMemory;
+            state = TRAP2;
+            PC = dataFromMemory;
         end
         //////////////////////////////////////////////////////////////
         //THIRD EXECUTE STATE
         else if(state === LD2) begin
-            state <= FETCH0;
+            state = FETCH0;
             //done already?
         end
         else if(state === LDI2) begin
-            state <= LD1;
+            state = LD1;
             //done already?
         end
         else if(state === ST2) begin
-            state <= FETCH0;
-            writeEnable <= 0;
+            state = FETCH0;
+            writeEnable = 0;
         end
         else if(state === STI2) begin
-            state <= ST1;
+            state = ST1;
             //done already?
         end
         else if(state === TRAP2) begin
-            state <= FETCH0;
+            state = FETCH0;
             //done already?
         end
         else begin //NOP
-            state <= FETCH0;
+            state = FETCH0;
         end
     end
 endmodule
