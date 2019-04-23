@@ -86,28 +86,28 @@ class GoldenLC3;
 
       if(opcode === ADD) begin
          res.cycles_taken = 5;
-         set_npz(regfile[dr]);
          if(imm_sw) begin
             regfile[dr] = regfile[sr1] + imm5;
          end
          else begin
             regfile[dr] = regfile[sr1] + regfile[sr2];
          end
+         set_npz(regfile[dr]);
       end
       else if(opcode === AND) begin
          res.cycles_taken = 5;
-         set_npz(regfile[dr]);
          if(imm_sw) begin
             regfile[dr] = regfile[sr1] & imm5;
          end
          else begin
             regfile[dr] = regfile[sr1] & regfile[sr2];
          end
+         set_npz(regfile[dr]);
       end
       else if(opcode === NOT) begin
          res.cycles_taken = 5;
-         set_npz(regfile[dr]);
          regfile[dr] = ~(regfile[sr1]);
+         set_npz(regfile[dr]);
       end
       else if(opcode === BR) begin
          res.cycles_taken = 5;
@@ -118,8 +118,7 @@ class GoldenLC3;
       end
       else if(opcode === JMP) begin //also RET
          res.cycles_taken = 5;
-         PC = regfile[dr];
-         res.cycles_taken = 5;
+         PC = regfile[sr1];
       end
       else if(opcode === JSR) begin //aslo JSRR
          res.cycles_taken = 6;
@@ -134,11 +133,10 @@ class GoldenLC3;
       end
       else if(opcode === LD) begin
          res.cycles_taken = 7;
-         set_npz(regfile[dr]);
          regfile[dr] = tr.mem_data[0];
+         set_npz(regfile[dr]);
       end
       else if(opcode === LDI) begin
-         set_npz(regfile[dr]);
          res.cycles_taken = 9;
          if($size(tr.mem_data) > 1) begin
             regfile[dr] = tr.mem_data[1];
@@ -146,16 +144,17 @@ class GoldenLC3;
          else begin
             regfile[dr] = tr.mem_data[0];
          end
+         set_npz(regfile[dr]);
       end
       else if(opcode === LDR) begin
          res.cycles_taken = 7;
-         set_npz(regfile[dr]);
          regfile[dr] = tr.mem_data[0];
+         set_npz(regfile[dr]);
       end
       else if(opcode === LEA) begin
          res.cycles_taken = 5;
-         set_npz(regfile[dr]);
          regfile[dr] = PC + pcoffset9;
+         set_npz(regfile[dr]);
       end
       else if(opcode === ST) begin
          res.cycles_taken = 7;
