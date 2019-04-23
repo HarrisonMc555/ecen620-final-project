@@ -394,6 +394,7 @@ class ResetAssertedDuringEveryCycleOfEveryInstruction extends Checker_cbs;
       coverpoint clock_cycle {
          option.weight = 0;
          option.goal = 0;
+         bins valid_cycles[] = {[1:10]};
       }
       cross opcode, clock_cycle;
    endgroup
@@ -511,7 +512,14 @@ class TestWithReset extends TestBase;
       env.gen_cfg();
       env.build();
       create_callbacks();
-      // env.gen.blueprint.no_reset.constraint_mode(0);
+      env.gen.blueprint.no_reset.constraint_mode(0);
+      env.gen.blueprint.valid_instruction.constraint_mode(0);
+      env.gen.blueprint.valid_not_instruction.constraint_mode(0);
+      env.gen.blueprint.valid_jmp_instruction_high_bits.constraint_mode(0);
+      env.gen.blueprint.valid_jmp_instruction_low_bits.constraint_mode(0);
+      env.gen.blueprint.valid_jsr_instruction_high_bits.constraint_mode(0);
+      env.gen.blueprint.valid_jsr_instruction_low_bits.constraint_mode(0);
+      env.gen.blueprint.valid_trap_instruction.constraint_mode(0);
       env.run();
       env.wrap_up();
    endtask
