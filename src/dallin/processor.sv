@@ -93,7 +93,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             PC <= 0;
             Nf <= 0;
             Pf <= 0;
-            Zf <= 0;
+            Zf <= 1;
             instruction <= 0;
             dataToMemory <= 0;
             writeEnable <= 0;
