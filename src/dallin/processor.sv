@@ -28,7 +28,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
     logic [15:0] PC = 0;
     logic [15:0] regs [8] = {0,0,0,0,0,0,0,0};
 
-    function void set_npz(logic[15:0] alu_out);
+    function void set_npz(input logic[15:0] alu_out output logic Nf, Pf, Zf);
         $display("%0h", alu_out);
         Nf <= alu_out[15];
         Pf <= ~(alu_out[15]) && (alu_out !== 16'h0000);
@@ -169,28 +169,28 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
             state <= FETCH0;
             if(imm_sw) begin
                 regs[dr] <= regs[sr1] + imm5;
-                set_npz(regs[sr1] + imm5);
+                set_npz(regs[sr1] + imm5, Nf, Pf, Zf);
             end
             else begin
                 regs[dr] <= regs[sr1] + regs[sr2];
-                set_npz(regs[sr1] + regs[sr2]);
+                set_npz(regs[sr1] + regs[sr2], Nf, Pf, Zf);
             end
         end
         else if(state === AND0) begin
             state <= FETCH0;
             if(imm_sw) begin
                 regs[dr] <= regs[sr1] & imm5;
-                set_npz(regs[sr1] + regs[sr2]);
+                set_npz(regs[sr1] + regs[sr2], Nf, Pf, Zf);
             end
             else begin
                 regs[dr] <= regs[sr1] & regs[sr2];
-                set_npz(regs[sr1] + regs[sr2]);
+                set_npz(regs[sr1] + regs[sr2], Nf, Pf, Zf);
             end
         end
         else if(state === NOT0) begin
             state <= FETCH0;
             regs[dr] = ~regs[sr1];
-            set_npz((~regs[sr1]));
+            set_npz((~regs[sr1]), Nf, Pf, Zf);
         end
         else if(state === BR0) begin
             if((br_n & Nf) || (br_p & Pf) || (br_z & Zf)) begin
@@ -227,7 +227,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         else if(state === LEA0) begin
             state <= FETCH0;
             regs[dr] <= PC + pcoffset9;
-            set_npz(PC + pcoffset9);
+            set_npz(PC + pcoffset9, Nf, Pf, Zf);
         end
         else if(state === ST0) begin
             state <= ST1;
@@ -264,7 +264,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         else if(state === LD1) begin
             state <= LD2;
             regs[dr] <= dataFromMemory;
-            set_npz(dataFromMemory);
+            set_npz(dataFromMemory, Nf, Pf, Zf);
         end
         else if(state === LDI1) begin
             state <= LDI2;
