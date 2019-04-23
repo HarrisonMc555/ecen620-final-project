@@ -7,9 +7,9 @@ class Transaction;
    rand logic [3:0] opcode;
    rand logic [11:0] other_bits;
    rand logic [15:0] instruction;
-   rand logic is_reset;
+   rand bit is_reset;
    rand int reset_clock_cycle;
-   logic[15:0] mem_data[$];
+   logic [15:0] mem_data[$];
 
    function new(logic[15:0] instruction=16'h00);
       this.instruction = instruction;
@@ -71,12 +71,13 @@ class Transaction;
    }
 
    constraint valid_clock_cycle {
-      reset_clock_cycle inside {[0:10]};
+      // reset_clock_cycle inside {[0:10]};
+      reset_clock_cycle < 10;
    }
 
-   constraint no_reset {
-      is_reset == 0;
-   }
+   // constraint no_reset {
+   //    is_reset == 0;
+   // }
 
 endclass
 

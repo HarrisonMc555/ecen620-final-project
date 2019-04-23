@@ -10,8 +10,6 @@ class Generator;
    function new(input mailbox #(Transaction) gen2drv);
       this.gen2drv = gen2drv;
       blueprint = new();
-      // Set constraints
-      // blueprint.header.turn_on_valid_constraints();
    endfunction
 
    task run();

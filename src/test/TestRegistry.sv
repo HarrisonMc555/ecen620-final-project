@@ -511,7 +511,7 @@ class TestWithReset extends TestBase;
       env.gen_cfg();
       env.build();
       create_callbacks();
-      env.gen.blueprint.no_reset.constraint_mode(0);
+      // env.gen.blueprint.no_reset.constraint_mode(0);
       env.run();
       env.wrap_up();
    endtask
@@ -523,11 +523,13 @@ class TestWithReset extends TestBase;
       AllBaseRegistersCb cb4 = new();
       AllDestinationsCb cb5 = new();
       AllInstructionsPrecededAndFollowed cb6 = new();
+      ResetAssertedDuringEveryCycleOfEveryInstruction cb7 = new();
       env.chk.cbs.push_back(cb1);
       env.chk.cbs.push_back(cb2);
       env.chk.cbs.push_back(cb3);
       env.chk.cbs.push_back(cb4);
       env.chk.cbs.push_back(cb5);
       env.chk.cbs.push_back(cb6);
+      env.chk.cbs.push_back(cb7);
    endtask
 endclass
