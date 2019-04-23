@@ -74,8 +74,8 @@ module controller (
         STATE_FETCH1  : curStateFetch1;
         STATE_FETCH2  : curStateFetch2;
         STATE_DECODE  : curStateDecode;
-        STATE_AND0    : curStateAnd0;
         STATE_ADD0    : curStateAdd0;
+        STATE_AND0    : curStateAnd0;
         STATE_NOT0    : curStateNot0;
         STATE_BR0     : curStateBr0;
         STATE_BR1     : curStateBr1;
@@ -145,19 +145,19 @@ module controller (
       end
    endtask
 
-   task curStateAnd0;
-      begin
-         /* DR = SR1 AND ALUSR2 */
-         /* ALUSR2 = SR2 OR SEXT(imm5) */
-         curStateALU(ALU_CONTROL_AND);
-      end
-   endtask
-
    task curStateAdd0;
       begin
          /* DR = SR1 + ALUSR2 */
          /* ALUSR2 = SR2 OR SEXT(imm5) */
          curStateALU(ALU_CONTROL_ADD);
+      end
+   endtask
+
+   task curStateAnd0;
+      begin
+         /* DR = SR1 AND ALUSR2 */
+         /* ALUSR2 = SR2 OR SEXT(imm5) */
+         curStateALU(ALU_CONTROL_AND);
       end
    endtask
 
@@ -444,8 +444,8 @@ module controller (
         STATE_FETCH1  : nextStateFetch1(nextState);
         STATE_FETCH2  : nextStateFetch2(nextState);
         STATE_DECODE  : nextStateDecode(nextState);
-        STATE_AND0    : nextStateAnd0(nextState);
         STATE_ADD0    : nextStateAdd0(nextState);
+        STATE_AND0    : nextStateAnd0(nextState);
         STATE_NOT0    : nextStateNot0(nextState);
         STATE_BR0     : nextStateBr0(nextState);
         STATE_BR1     : nextStateBr1(nextState);
@@ -500,32 +500,33 @@ module controller (
       output state_t outNextState;
       begin
          unique case (opCode)
-           OPCODE_AND : outNextState = STATE_AND0;
-           OPCODE_ADD : outNextState = STATE_ADD0;
-           OPCODE_NOT : outNextState = STATE_NOT0;
-           OPCODE_JSR : outNextState = STATE_JSR0;
-           OPCODE_BR  : outNextState = STATE_BR0;
-           OPCODE_LD  : outNextState = STATE_LD0;
-           OPCODE_LDI : outNextState = STATE_LDI0;
-           OPCODE_LDR : outNextState = STATE_LDR0;
-           OPCODE_ST  : outNextState = STATE_ST0;
-           OPCODE_LEA : outNextState = STATE_LEA0;
-           OPCODE_STI : outNextState = STATE_STI0;
-           OPCODE_STR : outNextState = STATE_STR0;
-           OPCODE_JMP : outNextState = STATE_JMP0;
-           default    : outNextState = STATE_FETCH0;
+           OPCODE_ADD  : outNextState = STATE_ADD0;
+           OPCODE_AND  : outNextState = STATE_AND0;
+           OPCODE_NOT  : outNextState = STATE_NOT0;
+           OPCODE_BR   : outNextState = STATE_BR0;
+           OPCODE_JMP  : outNextState = STATE_JMP0;
+           OPCODE_JSR  : outNextState = STATE_JSR0;
+           OPCODE_LD   : outNextState = STATE_LD0;
+           OPCODE_LDI  : outNextState = STATE_LDI0;
+           OPCODE_LDR  : outNextState = STATE_LDR0;
+           OPCODE_LEA  : outNextState = STATE_LEA0;
+           OPCODE_ST   : outNextState = STATE_ST0;
+           OPCODE_STI  : outNextState = STATE_STI0;
+           OPCODE_STR  : outNextState = STATE_STR0;
+           OPCODE_TRAP : outNextState = STATE_TRAP0;
+           default     : outNextState = STATE_FETCH0;
          endcase
       end
    endtask
 
-   task nextStateAnd0;
+   task nextStateAdd0;
       output state_t outNextState;
       begin
          outNextState = STATE_FETCH0;
       end
    endtask
 
-   task nextStateAdd0;
+   task nextStateAnd0;
       output state_t outNextState;
       begin
          outNextState = STATE_FETCH0;
