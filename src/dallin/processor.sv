@@ -183,7 +183,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if (state === FETCH1) begin
             state <= FETCH2;
-            instruction <= dataToMemory;
+            instruction <= dataFromMemory;
         end
         else if (state === FETCH2) begin
             state <= DECODE;
@@ -339,8 +339,8 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === LD1) begin
             state <= LD2;
-            regs[dr] <= dataToMemory;
-            set_npz(dataToMemory);
+            regs[dr] <= dataFromMemory;
+            set_npz(dataFromMemory);
         end
         else if(state === LDI1) begin
             state <= LDI2;
