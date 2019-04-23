@@ -26,6 +26,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
 
     logic Nf, Pf, Zf;
     logic [15:0] PC = 0;
+    logic [15:0] last_pc;
     logic [15:0] regs [8] = {0,0,0,0,0,0,0,0};
 
     logic [15:0] instruction;
@@ -273,13 +274,15 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === JSR10) begin //aslo JSRR
             state = FETCH0;
+            last_pc = PC;
             PC = base_r;
-            regs[7] = PC;
+            regs[7] = last_pc;
         end
         else if(state === JSR11) begin //aslo JSRR
             state = FETCH0;
+            last_pc = PC;
             PC = PC + pcoffset11;
-            regs[7] = PC;
+            regs[7] = last_pc;
         end
         else if(state === LD1) begin
             state = LD2;
