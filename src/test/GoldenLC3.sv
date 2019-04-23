@@ -118,7 +118,7 @@ class GoldenLC3;
       end
       else if(opcode === JMP) begin //also RET
          PC = regfile[dr];
-         res.cycles_taken = 5
+         res.cycles_taken = 5;
       end
       else if(opcode === JSR) begin //aslo JSRR
          res.cycles_taken = 6;
