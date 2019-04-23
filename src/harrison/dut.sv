@@ -19,5 +19,6 @@ module dut
 
    datapath datapath(.*);
    controller controller(.*);
+   assign writeEnable = memWE;
 
 endmodule
