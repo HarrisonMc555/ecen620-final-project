@@ -44,7 +44,7 @@ class Monitor;
          end
          if(/*dut about to cycle conditions here*/
             //top.dut.controller.curState === lc3::STATE_FETCH0 //harrison
-            top.dut.state === 0; //dallin
+            top.dut.state === 0 //dallin
             ) begin
             last_result = result;
             result = new();
