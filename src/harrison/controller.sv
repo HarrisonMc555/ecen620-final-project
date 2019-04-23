@@ -85,6 +85,7 @@ module controller (
         STATE_LD1     : curStateLd1;
         STATE_LD2     : curStateLd2;
         STATE_ST0     : curStateSt0;
+        STATE_STR0    : curStateStr0;
         STATE_ALL_ST0 : curStateAllSt0;
         STATE_ALL_ST1 : curStateAllSt1;
         STATE_JMP0    : curStateJmp0;
@@ -220,15 +221,27 @@ module controller (
 
    task curStateSt0;
       begin
-         /* mem [ PC + SEXT(PCoffset9) ] = SR */
+         /* mem [ PC + SEXT(PCoffset9) ] = R[SR] */
          /* This state: MAR = PC + SEXT(PCoffset9) */
          curStateLoadMARPCOffset9();
       end
    endtask
 
+   task curStateStr0;
+      begin
+         /* mem [ R[BaseR] + SEXT(PCoffset6) ] = R[SR] */
+         /* This state: MAR = R[BaseR] + SEXT(PCoffset9) */
+         ldMAR = 1'b1;
+         enaMARM = 1'b1;
+         selMAR = 1'b0;
+         selEAB1 = 1'b1;
+         selEAB2 = 2'b01;
+      end
+   endtask
+
    task curStateAllSt0;
       begin
-         /* This state: MDR = SR */
+         /* This state: MDR = R[SR] */
          ldMDR = 1'b1;
          selMDR = 1'b0;
          enaALU = 1'b1;
@@ -310,6 +323,7 @@ module controller (
         STATE_LD1     : nextStateLd1(nextState);
         STATE_LD2     : nextStateLd2(nextState);
         STATE_ST0     : nextStateSt0(nextState);
+        STATE_STR0    : nextStateStr0(nextState);
         STATE_ALL_ST0 : nextStateAllSt0(nextState);
         STATE_ALL_ST1 : nextStateAllSt1(nextState);
         STATE_JMP0    : nextStateJmp0(nextState);
@@ -350,6 +364,7 @@ module controller (
            OPCODE_BR  : outNextState = STATE_BR0;
            OPCODE_LD  : outNextState = STATE_LD0;
            OPCODE_ST  : outNextState = STATE_ST0;
+           OPCODE_STR : outNextState = STATE_STR0;
            OPCODE_JMP : outNextState = STATE_JMP0;
            default    : outNextState = STATE_FETCH0;
          endcase
@@ -431,6 +446,13 @@ module controller (
    endtask
 
    task nextStateSt0;
+      output state_t outNextState;
+      begin
+         outNextState = STATE_ALL_ST0;
+      end
+   endtask
+
+   task nextStateStr0;
       output state_t outNextState;
       begin
          outNextState = STATE_ALL_ST0;
