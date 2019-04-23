@@ -29,9 +29,9 @@ module datapath (
                  /* Condition Code Flags */
                  flagWE,
                  /* Memory (from testbench) */
-                 dataToMemory, dataFromMemory, memoryAddress, writeMemory
+                 dataToMemory, dataFromMemory, address, writeMemory
                  );
-   output logic [15:0] ir, dataToMemory, memoryAddress;
+   output logic [15:0] ir, dataToMemory, address;
    output logic        flagN, flagZ, flagP, writeMemory;
    input logic         clk, reset, enaMARM, selMAR, enaPC, ldPC, regWE, enaMDR,
                        ldMAR, ldMDR, memWE, selMDR, enaALU, ldIR, selEAB1,
@@ -156,7 +156,7 @@ module datapath (
    /* Memory */
    always_comb begin
       writeMemory = memWE;
-      memoryAddress = marOut;
+      address = marOut;
       dataToMemory = mdrOut;
    end
 
