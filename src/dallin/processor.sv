@@ -160,7 +160,7 @@ module dut(clk, reset, memWE, memAddrIn, memDataIn, memDataOut);
                     STI0, STI1, STI2, //GOES TO ST1 AFTER
                     JSR0, JSR10, JSR11, //EITHER 0 OR 1
                     JMP0,
-                    BR0, BR1, //BR1 IS OPTIONAL
+                    BR0, BR1 //BR1 IS OPTIONAL
                     } state;
 
 
