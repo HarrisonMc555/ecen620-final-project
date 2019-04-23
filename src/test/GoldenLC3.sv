@@ -22,6 +22,7 @@ class GoldenLC3;
    //const logic[3:0] RESERVERD = 4'b1101; //just a nop
 
    logic [15:0]      PC = 0;
+   logic [15:0]      lastPC;
    logic [15:0]      regfile [7:0] = {0,0,0,0,0,0,0,0};
    logic             Nf = 0;
    logic             Pf = 0;
