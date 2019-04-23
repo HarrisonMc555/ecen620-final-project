@@ -135,15 +135,15 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
     assign sr1         = ir[ 8: 6];
     assign sr2         = ir[ 2: 0];
     assign imm_sw      = ir[ 5];
-    assign imm5        = ir[ 4: 0];
+    assign imm5        = {{11{ir[4]}}, ir[ 4: 0]};
     assign br_n        = ir[11];
     assign br_z        = ir[10];
     assign br_p        = ir[ 9];
     assign base_r      = ir[ 8: 6];
     assign jsr_sw      = ir[11]; //0: jsrr, 1: jsr
-    assign pcoffset6   = ir[ 5: 0];
-    assign pcoffset9   = ir[ 8: 0];
-    assign pcoffset11  = ir[10: 0];
+    assign pcoffset6   = {{10{ir[5]}}, ir[ 5: 0]};
+    assign pcoffset9   = {{7{ir[8]}}, ir[ 8: 0]};
+    assign pcoffset11  = {{5{ir[10]}}, ir[10: 0]};
     assign trapvect8   = ir[ 7: 0];
 
     enum integer {FETCH0=0, FETCH1=1, FETCH2=2, DECODE=3, EXECUTE=4,
