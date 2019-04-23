@@ -28,13 +28,6 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
     logic [15:0] PC = 0;
     logic [15:0] regs [8] = {0,0,0,0,0,0,0,0};
 
-    automatic function void set_npz(input logic[15:0] alu_out, output logic Nf, Pf, Zf);
-        $display("%0h", alu_out);
-        Nf = alu_out[15];
-        Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
-        Zf = (alu_out === 16'h0000);
-    endfunction;
-
     logic [15:0] instruction;
     logic [ 3:0] opcode;
     logic [ 2:0] sr1;
@@ -52,6 +45,13 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
     logic [15:0] pcoffset6;
     logic [ 7:0] trapvect8;
     logic [15:0] ir;
+
+    automatic function void set_npz(input logic[15:0] alu_out, output logic Nf, Pf, Zf);
+        $display("%0h", alu_out);
+        Nf = alu_out[15];
+        Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
+        Zf = (alu_out === 16'h0000);
+    endfunction;
 
     assign ir          = instruction;
     assign opcode      = ir[15:12];
