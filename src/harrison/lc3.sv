@@ -17,8 +17,12 @@ package lc3;
                               STATE_LD1,
                               STATE_LD2,
                               STATE_ST0,
-                              STATE_ST1,
-                              STATE_ST2,
+                              STATE_STR0,
+                              STATE_STI0,
+                              STATE_STI1,
+                              STATE_STI2,
+                              STATE_ALL_ST0,
+                              STATE_ALL_ST1,
                               STATE_JMP0,
                               STATE_UNKNOWN
                               } state_t;
