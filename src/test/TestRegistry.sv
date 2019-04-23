@@ -414,23 +414,41 @@ class TestRandomGood extends TestBase;
    endtask
 endclass
 
-class TestWithBad extends TestBase;
+class TestRandomAll extends TestBase;
 
    function new(virtual dut_if dut_if);
       super.new(dut_if);
-      TestRegistry::register("TestWithBad", this);
+      TestRegistry::register("TestRandomAll", this);
    endfunction
 
    virtual task run_test();
-      // Driver_cb_send_to_scoreboard scoreboard_callback;
-      // $display("%m");
+      $display("%m");
       env.gen_cfg();
       env.build();
-      // scoreboard_callback = new(env.sb);
-      // env.drv.cbs.push_back(scoreboard_callback);
+      create_callbacks();
       env.gen.blueprint.valid_instruction.constraint_mode(0);
+      env.gen.blueprint.valid_not_instruction.constraint_mode(0);
+      env.gen.blueprint.valid_jmp_instruction_high_bits.constraint_mode(0);
+      env.gen.blueprint.valid_jmp_instruction_low_bits.constraint_mode(0);
+      env.gen.blueprint.valid_jsr_instruction_high_bits.constraint_mode(0);
+      env.gen.blueprint.valid_jsr_instruction_low_bits.constraint_mode(0);
+      env.gen.blueprint.valid_trap_instruction.constraint_mode(0);
       env.run();
       env.wrap_up();
    endtask
 
+   task create_callbacks;
+      AllOpcodesCb cb1 = new();
+      AllSourcesCb cb2 = new();
+      AllSecondSourcesCb cb3 = new();
+      AllBaseRegistersCb cb4 = new();
+      AllDestinationsCb cb5 = new();
+      AllInstructionsPrecededAndFollowed cb6 = new();
+      env.chk.cbs.push_back(cb1);
+      env.chk.cbs.push_back(cb2);
+      env.chk.cbs.push_back(cb3);
+      env.chk.cbs.push_back(cb4);
+      env.chk.cbs.push_back(cb5);
+      env.chk.cbs.push_back(cb6);
+   endtask
 endclass
