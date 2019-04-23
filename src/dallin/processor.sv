@@ -170,8 +170,8 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         else if(state === ADD0) begin
             state = FETCH0;
             if(imm_sw) begin
-                regs[dr] = regs[sr1] + imm5;
                 alu_out = regs[sr1] + imm5;
+                regs[dr] = alu_out;
                 Nf = alu_out[15];
                 Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
                 Zf = (alu_out === 16'h0000);
@@ -181,8 +181,8 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
                 $display("%0d, %0h", $time, Zf);
             end
             else begin
-                regs[dr] = regs[sr1] + regs[sr2];
                 alu_out = regs[sr1] + regs[sr2];
+                regs[dr] = alu_out;
                 Nf = alu_out[15];
                 Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
                 Zf = (alu_out === 16'h0000);
@@ -195,8 +195,8 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         else if(state === AND0) begin
             state = FETCH0;
             if(imm_sw) begin
-                regs[dr] = regs[sr1] & imm5;
                 alu_out = regs[sr1] & imm5;
+                regs[dr] = alu_out;
                 Nf = alu_out[15];
                 Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
                 Zf = (alu_out === 16'h0000);
@@ -206,8 +206,8 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
                 $display("%0d, %0h", $time, Zf);
             end
             else begin
-                regs[dr] = regs[sr1] & regs[sr2];
                 alu_out = regs[sr1] & regs[sr2];
+                regs[dr] = alu_out;
                 Nf = alu_out[15];
                 Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
                 Zf = (alu_out === 16'h0000);
@@ -219,8 +219,8 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === NOT0) begin
             state = FETCH0;
-            regs[dr] = ~regs[sr1];
             alu_out = ~regs[sr1];
+            regs[dr] = alu_out;
             Nf = alu_out[15];
             Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
             Zf = (alu_out === 16'h0000);
@@ -263,8 +263,8 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === LEA0) begin
             state = FETCH0;
-            regs[dr] = PC + pcoffset9;
             alu_out = PC + pcoffset9;
+            regs[dr] = alu_out;
             Nf = alu_out[15];
             Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
             Zf = (alu_out === 16'h0000);
@@ -307,8 +307,8 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
         end
         else if(state === LD1) begin
             state = LD2;
-            regs[dr] = dataFromMemory;
             alu_out = dataFromMemory;
+            regs[dr] = alu_out;
             Nf = alu_out[15];
             Pf = ~(alu_out[15]) && (alu_out !== 16'h0000);
             Zf = (alu_out === 16'h0000);
