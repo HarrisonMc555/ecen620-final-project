@@ -35,6 +35,11 @@ class Transaction;
       STR,
       TRAP
       };
+      instruction[15:12] == JMP -> instruction[11:9] == 0;
+      instruction[15:12] == JMP -> instruction[ 5:0] == 0;
+      instruction[15:12] == JSR && instruction[11] == 0 -> instruction[11:9] == 0;
+      instruction[15:12] == JSR && instruction[11] == 0 -> instruction[ 5:0] == 0;
+      instruction[15:12] == TRAP -> instruction[11:8] == 0;
    }
 
    constraint valid_clock_cycle {
