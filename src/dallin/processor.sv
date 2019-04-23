@@ -102,7 +102,7 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
     //const logic[3:0] RESERVERD = 4'b1101; //just a nop
 
     logic Nf, Pf, Zf;
-    logic [15:0] PC;
+    logic [15:0] PC = 0;
     logic [15:0] regs [8];
 
     function void set_npz(logic[15:0] alu_out);
@@ -165,7 +165,18 @@ module dut(clk, reset, writeEnable, address, dataToMemory, dataFromMemory);
 
 
     always @(posedge clk) begin
-        if(state === FETCH0) begin
+        if (reset == 1) begin
+            state = FETCH0;
+            PC <= 0;
+            Nf <= 0;
+            Pf <= 0;
+            Zf <= 0;
+            instruction <= 0;
+            dataToMemory <= 0;
+            writeEnable <= 0;
+            regs = {0,0,0,0,0,0,0};
+        end
+        else if(state === FETCH0) begin
             state <= FETCH1;
             address <= PC;
             PC <= PC + 1;
