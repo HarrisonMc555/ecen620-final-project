@@ -11,9 +11,8 @@ sources += $(wildcard ../dallin/*.sv)
 endif
 sources += dut_if.sv
 sources += assert_macros.sv
-sources += dut_asserts.sv
 sources += bindfiles.sv
-sources += clock_unit.sv
+sources += dut_asserts.sv
 sources += opcodes.sv
 sources += verification_pkg.sv
 sources += scoreboard_pkg.sv

@@ -13,7 +13,7 @@ module top;
    end
    end 
 
-   //clock_unit clock(clk);
+   bindfiles bindfiles();
    test test(dut_if);
    dut dut(.clk(dut_if.clk),
            .reset(dut_if.reset),
