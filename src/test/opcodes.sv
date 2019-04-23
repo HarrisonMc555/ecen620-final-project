@@ -13,5 +13,4 @@ package opcodes;
    const logic [3:0] STI  = 4'b1011;
    const logic [3:0] STR  = 4'b0111;
    const logic [3:0] TRAP = 4'b1111;
-   const logic [3:0] RTI  = 4'b1000;
 endpackage

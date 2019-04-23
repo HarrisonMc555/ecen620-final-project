@@ -33,8 +33,7 @@ class Transaction;
       ST,
       STI,
       STR,
-      TRAP,
-      RTI
+      TRAP
       };
    }
 
