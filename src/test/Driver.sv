@@ -27,6 +27,7 @@ class Driver;
       repeat(num_trans) begin
          gen2drv.peek(trans);
          // foreach (cbs[i]) cbs[i].pre_tx(trans, drop);
+         // @(posedge dif.clk);
          transmit(trans);
          // foreach (cbs[i]) cbs[i].post_tx(trans);
          gen2drv.get(trans);
@@ -62,7 +63,7 @@ class Driver;
                // That's fine.
                transactionDone.get(bogus);
                // I think we need another cycle here ???
-               @(posedge dif.clk);
+               // @(posedge dif.clk);
                return;
             end
             @(posedge dif.clk);
@@ -82,7 +83,7 @@ class Driver;
          trans.mem_data.push_back(mem_data);
          transactionDone.get(bogus);
          // I think we need another cycle here ???
-         @(posedge dif.clk);
+         // @(posedge dif.clk);
       end
    endtask;
 

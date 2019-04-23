@@ -43,7 +43,7 @@ class Monitor;
             result.write_count++;
          end
          if(/*dut about to cycle conditions here*/
-            top.dut.controller.nextState === lc3::STATE_FETCH0 //harrison
+            top.dut.controller.curState === lc3::STATE_FETCH0 //harrison
             //dut.state === 0 //dallin
             ) begin
             last_result = result;
