@@ -153,11 +153,10 @@ class GoldenLC3;
       end
       else if(opcode === LD) begin
          res.cycles_taken = 7;
-         set_npz(regfile[dr]);
          regfile[dr] = tr.mem_data[0];
+         set_npz(regfile[dr]);
       end
       else if(opcode === LDI) begin
-         set_npz(regfile[dr]);
          res.cycles_taken = 9;
          if($size(tr.mem_data) > 1) begin
             regfile[dr] = tr.mem_data[1];
@@ -165,16 +164,17 @@ class GoldenLC3;
          else begin
             regfile[dr] = tr.mem_data[0];
          end
+         set_npz(regfile[dr]);
       end
       else if(opcode === LDR) begin
          res.cycles_taken = 7;
-         set_npz(regfile[dr]);
          regfile[dr] = tr.mem_data[0];
+         set_npz(regfile[dr]);
       end
       else if(opcode === LEA) begin
          res.cycles_taken = 5;
-         set_npz(regfile[dr]);
          regfile[dr] = PC + pcoffset9;
+         set_npz(regfile[dr]);
       end
       else if(opcode === ST) begin
          res.cycles_taken = 7;
