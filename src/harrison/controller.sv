@@ -54,7 +54,7 @@ module controller (
       ldPC       = 1'b0;
       selPC      = 2'b00;
       DR         = ir[11:9]; /* DR is always ir[11:9] if used */
-      SR1        = 3'b000;
+      SR1        = ir[8:6]; /* SR1 is *almost* always ir[8:6] if used (not in ST* instructions) */
       SR2        = ir[2:0]; /* SR2 is always ir[2:0] if used */
       regWE      = 1'b0;
       enaMDR     = 1'b0;

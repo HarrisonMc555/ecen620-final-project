@@ -11,8 +11,8 @@ module dut
    logic [15:0] ir;
    logic flagN, flagZ, flagP, writeMemory;
    logic enaMARM, selMAR, enaPC, ldPC, regWE, enaMDR,
-          ldMAR, ldMDR, memWE, selMDR, enaALU, ldIR, selEAB1,
-          flagWE;
+         ldMAR, ldMDR, memWE, selMDR, enaALU, ldIR, selEAB1,
+         flagWE;
    logic [1:0] selPC, selEAB2;
    logic [2:0] DR, SR1, SR2;
    aluControl_t aluControl;
