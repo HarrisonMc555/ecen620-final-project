@@ -169,11 +169,17 @@ module controller (
 
    task curStateJsr1;
       begin
-         /* PC = PC + SEXT(PCoffset11) */
          ldPC = 1'b1;
          selPC = 2'b01;
-         selEAB1 = 1'b0;
-         selEAB2 = 2'b11;
+         if (ir[11] == 1'b1) begin
+            /* PC = PC + SEXT(PCoffset11) */
+            selEAB1 = 1'b0;
+            selEAB2 = 2'b11;
+         end else begin
+            /* PC = R[BaseR] */
+            selEAB1 = 1'b1;
+            selEAB2 = 2'b00;
+         end
       end
    endtask
 
