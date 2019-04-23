@@ -131,7 +131,7 @@ class GoldenLC3;
          end
       end
       else if(opcode === LD) begin
-         res.cycles_taken = 8;
+         res.cycles_taken = 7;
          set_npz(regfile[dr]);
          regfile[dr] = tr.mem_data[0];
       end
@@ -146,11 +146,12 @@ class GoldenLC3;
          end
       end
       else if(opcode === LDR) begin
-         res.cycles_taken = 8;
+         res.cycles_taken = 7;
          set_npz(regfile[dr]);
          regfile[dr] = tr.mem_data[0];
       end
       else if(opcode === LEA) begin
+         res.cycles_taken = 5;
          set_npz(regfile[dr]);
          regfile[dr] = PC + pcoffset9;
       end
